@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserWebApi.Models
 {
-    [Table("user", Schema = "dbo")]
-    public class User
+    [Table("users", Schema = "dbo")]
+    public class Users
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
