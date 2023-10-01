@@ -11,7 +11,7 @@ namespace PermitApplicationWebApi.Data
         {
         }
 
-        public DbSet<Permits> Permits { get; set; }
+        public DbSet<Permit> Permits { get; set; }
 
     }
 }
