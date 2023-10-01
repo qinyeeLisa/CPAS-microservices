@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PermitApplicationWebApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Dependency Injection of DbContext Class
 builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
 var app = builder.Build();
