@@ -1,65 +1,120 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Net;
+using Microsoft.AspNetCore.Http;
 using UserWebApi.Data;
 using UserWebApi.Models;
+using UserWebApi.Models.Dto;
+using UserWebApi.Models.ViewModel;
+using UserWebApi.Services;
 
 namespace UserWebApi.Controllers
 {
     [ApiController]
-    [Route("api/users")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly UserAPIDbContext _userAPIDbContext;
+        private readonly UserService _userService;
 
-        public UserController(UserAPIDbContext userAPIDbContext)
+        public UserController(UserAPIDbContext userAPIDbContext, UserService userService)
         {
             _userAPIDbContext = userAPIDbContext;
+            _userService = userService;
         }
 
-        [HttpGet("login")]
-        //[ProducesResponseType(typeof(ErrorViewModel), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var result = await _userAPIDbContext.Users.Where(u => u.Email == loginDto.Email && u.Password == loginDto.Password).FirstOrDefaultAsync();
+            var user = await _userAPIDbContext.User.Where(u => u.Email == loginDto.Email && u.Password == loginDto.Password).FirstOrDefaultAsync();
 
-            if (result != null)
+            if (user != null)
             {
-                return Ok("Login successful.");
+                return Ok("Login Successful.");
             }
-            else { return BadRequest(); }
+            else
+            {
+                return NotFound("User does not exist.");
+            }
         }
-
-        [Route("[action]")]
-        [HttpPost]
-        //[ProducesResponseType(typeof(ErrorViewModel),200)]
-        //[ProducesResponseType(400)]
-        public async Task<IActionResult> CreateUser(Users user)
+        
+        [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> Register([FromBody] UserInfoDto userInfo)
         {
-            await _userAPIDbContext.Users.AddAsync(user);
-            await _userAPIDbContext.SaveChangesAsync();
-            return Ok();
+            var isUserExist = await _userAPIDbContext.User.Where(u => u.Email == userInfo.Email).FirstOrDefaultAsync();
+            if (isUserExist == null)
+            {
+                var newUser = _userService.MapUserInfoDtoToEntity(userInfo);
+                await _userAPIDbContext.User.AddAsync(newUser);
+                await _userAPIDbContext.SaveChangesAsync();
+                return Ok("User is created successfully");
+            }
+            else
+            {
+                return Conflict("Account exist.");
+            }
         }
 
-        [Route("[action]")]
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser(Users user)
+        [HttpPost("UserInfo")]
+        [ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserProfile(long userId)
         {
-            _userAPIDbContext.Users.Update(user);
-            await _userAPIDbContext.SaveChangesAsync();
-            return Ok();
+            var user = await _userAPIDbContext.User.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+
+            if (user != null)
+            {
+                var userProfile = _userService.MapEntityToUserProfileViewModel(user);
+                return Ok(userProfile);
+            }
+            else
+            {
+                return NotFound("Unable to get user profile.");
+            }
         }
 
-        [Route("[action]")]
+        [HttpPost("Update")]
+        //[ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
+        //not sure after update
+        public async Task<IActionResult> UpdateUser([FromBody] UserInfoDto userInfo)
+        {
+            var currentUser = await _userAPIDbContext.User.Where(u => u.UserId == userInfo.Id).FirstOrDefaultAsync();
+            if (currentUser != null)
+            {
+                var updatedUser = _userService.MapUserInfoDtoToEntity(userInfo);
+                updatedUser.Email = currentUser.Email;
+                updatedUser.Password = currentUser.Password;
+                //_userAPIDbContext.User.Update(updatedUser);
+                _userAPIDbContext.Entry(currentUser).State = EntityState.Detached;
+                _userAPIDbContext.Entry(updatedUser).State = EntityState.Modified;
+                await _userAPIDbContext.SaveChangesAsync();
+                return Ok("User is updated successfully");
+
+                
+            }
+            else
+            {
+                return NotFound("Unable to update user.");
+            }
+        }
+
+        [Route("Delete")]
         [HttpDelete]
+        //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteUser(int userId)
         {
-            var user = await _userAPIDbContext.Users.FindAsync(userId);
-            _userAPIDbContext.Users.Remove(user);
-            await _userAPIDbContext.SaveChangesAsync();
-            return Ok();
-        }
+            var currentUser = await _userAPIDbContext.User.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            if (currentUser != null)
+            {
+                _userAPIDbContext.User.Remove(currentUser);
+                await _userAPIDbContext.SaveChangesAsync();
+                return Ok("User is deleted successfully.");
+            }
+            else
+            {
+                return NotFound("Unable to delete user.");
+            }          
+        }        
     }
 }

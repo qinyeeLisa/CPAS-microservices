@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UserWebApi.Models
+namespace UserWebApi.Models.Dto
 {
     public class LoginDto
     {

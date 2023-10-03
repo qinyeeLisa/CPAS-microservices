@@ -9,7 +9,6 @@ namespace UserWebApi.Data
         {
         }
 
-        public DbSet<Users> Users { get; set; }
-
+        public DbSet<User> User { get; set; }
     }
 }

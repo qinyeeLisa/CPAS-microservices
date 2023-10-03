@@ -3,36 +3,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserWebApi.Models
 {
-    [Table("users", Schema = "dbo")]
-    public class Users
+    [Table("User", Schema = "dbo")]
+    public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
-        public int Id { get; set; }
+        public long UserId { get; set; }
 
-        [Column("name")]
+        [MaxLength(100)]
         public string Name { get; set; }
 
-        [Column("email")]
+        [MaxLength(320)]
         public string Email { get; set; }
 
-        [Column("password")]
+        [MaxLength(100)]
         public string Password { get; set; }
 
-        [Column("role")]
         public int Role { get; set; }
 
-        [Column("createdby")]
+        [MaxLength(100)]
         public string CreatedBy { get; set; }
 
-        [Column("datetimecreated")]
         public DateTime DateTimeCreated { get; set; }
 
-        [Column("updatedby")]
+        [MaxLength(100)]
         public string UpdatedBy { get; set; }
 
-        [Column("datetimeupdated")]
         public DateTime DateTimeUpdated { get; set; }
     }
 }
