@@ -18,10 +18,12 @@ namespace UserWebApi.Services
                 Email = userInfo.Email,
                 Password = userInfo.Password,
                 Role = userInfo.Role,
-                CreatedBy = userInfo.CreatedBy,
-                DateTimeCreated = userInfo.DateTimeCreated,
-                UpdatedBy = userInfo.UpdatedBy,
-                DateTimeUpdated = userInfo.DateTimeUpdated
+                //temporary put user
+                CreatedBy = "user",
+                DateTimeCreated = DateTime.Now,
+                //temporary put user
+                UpdatedBy = "user",
+                DateTimeUpdated = DateTime.Now,
             };
         }
 
