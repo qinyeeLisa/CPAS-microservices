@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserWebApi", "UserWebApi\UserWebApi.csproj", "{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermitApplicationWebApi", "PermitApplicationWebApi\PermitApplicationWebApi.csproj", "{86F5CBBC-B984-48E7-A706-D925F3B0B023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PermitApplicationWebApi", "PermitApplicationWebApi\PermitApplicationWebApi.csproj", "{86F5CBBC-B984-48E7-A706-D925F3B0B023}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{481272E7-5576-4662-BE09-F8A88A6E0D5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9EA9B451-B445-4DA4-AF43-5FF6C4F052AB} = {481272E7-5576-4662-BE09-F8A88A6E0D5F}
 		{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 		{86F5CBBC-B984-48E7-A706-D925F3B0B023} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 	EndGlobalSection
