@@ -66,7 +66,7 @@ namespace PermitApplicationWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("permit", "dbo");
+                    b.ToTable("Permit", "dbo");
                 });
 #pragma warning restore 612, 618
         }
