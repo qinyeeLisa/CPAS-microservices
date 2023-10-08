@@ -76,7 +76,7 @@ namespace UserWebApi.Controllers
 
         [HttpPost("Update")]
         //[ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
-        //not sure after update
+        //not sure after update need to return user info or not
         public async Task<IActionResult> UpdateUser([FromBody] UserInfoDto userInfo)
         {
             var currentUser = await _userAPIDbContext.User.Where(u => u.UserId == userInfo.Id).FirstOrDefaultAsync();
@@ -89,9 +89,7 @@ namespace UserWebApi.Controllers
                 _userAPIDbContext.Entry(currentUser).State = EntityState.Detached;
                 _userAPIDbContext.Entry(updatedUser).State = EntityState.Modified;
                 await _userAPIDbContext.SaveChangesAsync();
-                return Ok("User is updated successfully");
-
-                
+                return Ok("User is updated successfully");             
             }
             else
             {
@@ -99,7 +97,6 @@ namespace UserWebApi.Controllers
             }
         }
 
-        [Route("Delete")]
         [HttpDelete]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteUser(int userId)
