@@ -17,13 +17,7 @@ namespace UserWebApi.Services
                 Name = userInfo.Name,
                 Email = userInfo.Email,
                 Password = userInfo.Password,
-                Role = userInfo.Role,
-                //temporary put user
-                CreatedBy = "user",
-                DateTimeCreated = DateTime.Now,
-                //temporary put user
-                UpdatedBy = "user",
-                DateTimeUpdated = DateTime.Now,
+                Role = userInfo.Role
             };
         }
 
