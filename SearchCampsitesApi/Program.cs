@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using UserWebApi.Data;
-using UserWebApi.Services;
+using Microsoft.Extensions.Configuration;
+using SearchCampsitesApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +10,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
-builder.Services.AddScoped<UserService>();
 
-builder.Services.AddDbContext<UserAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Dependency Injection of DbContext Class
+builder.Services.AddDbContext<CampsiteAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 var app = builder.Build();
 
@@ -24,9 +26,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
-app.MapGet("/api", () => "Test!");
+app.UseAuthorization();
 
 app.MapControllers();
 
