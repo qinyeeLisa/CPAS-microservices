@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PermitApplicationWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateforPermit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace PermitApplicationWebApi.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "permit",
+                name: "Permit",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -34,7 +34,7 @@ namespace PermitApplicationWebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_permit", x => x.Id);
+                    table.PrimaryKey("PK_Permit", x => x.Id);
                 });
         }
 
@@ -42,7 +42,7 @@ namespace PermitApplicationWebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "permit",
+                name: "Permit",
                 schema: "dbo");
         }
     }

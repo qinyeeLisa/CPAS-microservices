@@ -12,8 +12,8 @@ using PermitApplicationWebApi.Data;
 namespace PermitApplicationWebApi.Migrations
 {
     [DbContext(typeof(PermitAPIDbContext))]
-    [Migration("20231001045148_Initial Create")]
-    partial class InitialCreate
+    [Migration("20231008040655_Initial Create for Permit")]
+    partial class InitialCreateforPermit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace PermitApplicationWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("permit", "dbo");
+                    b.ToTable("Permit", "dbo");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PermitApplicationWebApi.Models
 {
-    [Table("permit", Schema = "dbo")]
+    [Table("Permit", Schema = "dbo")]
     public class Permit
     {
         [Key]
