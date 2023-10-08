@@ -56,7 +56,7 @@ namespace UserWebApi.Controllers
             }
         }
 
-        [HttpPost("UserInfo")]
+        [HttpPost("GetUserProfile")]
         [ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserProfile(long userId)
