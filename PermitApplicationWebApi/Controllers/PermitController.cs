@@ -58,7 +58,7 @@ namespace PermitApplicationWebApi.Controllers
         [HttpPut("editpermit/{id}")]
         public async Task<IActionResult> PutPermit(int id, Permit permit)
         {
-            if (id != permit.Id)
+            if (id != permit.PermitId)
             {
                 return BadRequest();
             }
@@ -95,7 +95,7 @@ namespace PermitApplicationWebApi.Controllers
             _permitAPIDbContext.Permits.Add(permit);
             await _permitAPIDbContext.SaveChangesAsync();
 
-            return CreatedAtAction("GetPermit", new { id = permit.Id }, permit);
+            return CreatedAtAction("GetPermit", new { id = permit.PermitId }, permit);
         }
 
         // DELETE: api/Permit/DeletePermit/5
@@ -120,7 +120,7 @@ namespace PermitApplicationWebApi.Controllers
 
         private bool PermitExists(int id)
         {
-            return (_permitAPIDbContext.Permits?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_permitAPIDbContext.Permits?.Any(e => e.PermitId == id)).GetValueOrDefault();
         }
     }
 }
