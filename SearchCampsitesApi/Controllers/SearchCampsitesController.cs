@@ -36,7 +36,7 @@ namespace SearchCampsitesApi.Controllers
             
             return  campsitesList;
         }
-
+        /*returns the size list in the case frontEnd wants to get the list of sizes available as a dropdown*/
         [HttpGet]
         [Route("GetSizeList")]
         public async Task<ActionResult<IEnumerable<int>>> GetSizeList()
@@ -74,6 +74,23 @@ namespace SearchCampsitesApi.Controllers
             await _campsitesAPIDbContext.Campsite.AddAsync(campsite);
             await _campsitesAPIDbContext.SaveChangesAsync();
             return Ok("Campsite added successfully");
+        }
+
+        [HttpDelete]
+        //[ProducesResponseType(typeof(ErrorModel), 500)]
+        public async Task<IActionResult> DeleteCampsite(int campsiteId)
+        {
+            var campSite = await _campsitesAPIDbContext.Campsite.Where(u => u.CampsiteId == campsiteId).FirstOrDefaultAsync();
+            if (campSite != null)
+            {
+                _campsitesAPIDbContext.Campsite.Remove(campSite);
+                await _campsitesAPIDbContext.SaveChangesAsync();
+                return Ok("Campsite is deleted successfully.");
+            }
+            else
+            {
+                return NotFound("Unable to delete campSite.");
+            }
         }
 
 
