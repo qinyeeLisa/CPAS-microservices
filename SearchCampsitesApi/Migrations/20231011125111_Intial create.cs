@@ -6,14 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SearchCampsitesApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreateforSearchCampsites : Migration
+    public partial class Intialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "dbo");
-
+            migrationBuilder.DropTable(
+                name: "Campsites",
+                schema: "dbo");
             migrationBuilder.CreateTable(
                 name: "Campsites",
                 schema: "dbo",
@@ -34,7 +36,20 @@ namespace SearchCampsitesApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campsites", x => x.CampsiteId);
+                    table.ForeignKey(
+                        name: "FK_Campsites_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "dbo",
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Campsites_UserId",
+                schema: "dbo",
+                table: "Campsites",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -43,6 +58,7 @@ namespace SearchCampsitesApi.Migrations
             migrationBuilder.DropTable(
                 name: "Campsites",
                 schema: "dbo");
+
         }
     }
 }
