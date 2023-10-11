@@ -1,17 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UserWebApi.Models;
 
 namespace PermitApplicationWebApi.Models
 {
-    [Table("permit", Schema = "dbo")]
+    [Table("Permit", Schema = "dbo")]
     public class Permit
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long PermitId { get; set; }
 
-        //[ForeignKey("UserId")]
-        public int UserId { get; set; } // Navigation property for User
+        [ForeignKey("UserId")]
+        public long UserId { get; set; } // Foreign key
+
+        public User User { get; set; } // Navigation property to related User entity
 
         public DateTime StartDate { get; set; }
 
@@ -33,9 +36,4 @@ namespace PermitApplicationWebApi.Models
     }
 
 
-    //public class User
-    //{
-    //    public int UserId { get; set; }
-       
-    //}
 }

@@ -42,21 +42,35 @@ namespace UserWebApi.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register([FromBody] UserInfoDto userInfo)
         {
-            var isUserExist = await _userAPIDbContext.User.Where(u => u.Email == userInfo.Email).FirstOrDefaultAsync();
-            if (isUserExist == null)
+            var isUsernameExist = await _userAPIDbContext.User.Where(u => u.Username == userInfo.Username).FirstOrDefaultAsync();
+
+            if (isUsernameExist != null)
             {
-                var newUser = _userService.MapUserInfoDtoToEntity(userInfo);
-                await _userAPIDbContext.User.AddAsync(newUser);
-                await _userAPIDbContext.SaveChangesAsync();
-                return Ok("User is created successfully");
+                var isEmailExist = await _userAPIDbContext.User.Where(u => u.Email == userInfo.Email).FirstOrDefaultAsync();
+                if (isEmailExist == null)
+                {
+                    var newUser = _userService.MapUserInfoDtoToEntity(userInfo);
+                    newUser.CreatedBy = userInfo.Username;
+                    newUser.DateTimeCreated = DateTime.Now;
+                    newUser.UpdatedBy = userInfo.Username;
+                    newUser.DateTimeUpdated = DateTime.Now;
+                    await _userAPIDbContext.User.AddAsync(newUser);
+                    await _userAPIDbContext.SaveChangesAsync();
+                    return Ok("User is created successfully");
+                }
+                else
+                {
+                    return Conflict("Email exist. Please login using your email.");
+                }
             }
             else
             {
-                return Conflict("Account exist.");
+                return Conflict("Username exist. Please choose another username.");
             }
+            
         }
 
-        [HttpPost("UserInfo")]
+        [HttpPost("GetUserProfile")]
         [ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserProfile(long userId)
@@ -74,7 +88,7 @@ namespace UserWebApi.Controllers
             }
         }
 
-        [HttpPost("Update")]
+        [HttpPost("UpdateUser")]
         //[ProducesResponseType(typeof(UserProfileViewModel), StatusCodes.Status200OK)]
         //not sure after update need to return user info or not
         public async Task<IActionResult> UpdateUser([FromBody] UserInfoDto userInfo)
@@ -85,7 +99,10 @@ namespace UserWebApi.Controllers
                 var updatedUser = _userService.MapUserInfoDtoToEntity(userInfo);
                 updatedUser.Email = currentUser.Email;
                 updatedUser.Password = currentUser.Password;
-                //_userAPIDbContext.User.Update(updatedUser);
+                updatedUser.CreatedBy = currentUser.Username;
+                updatedUser.DateTimeCreated = currentUser.DateTimeCreated;
+                updatedUser.UpdatedBy = userInfo.Username;
+                updatedUser.DateTimeUpdated = DateTime.Now;
                 _userAPIDbContext.Entry(currentUser).State = EntityState.Detached;
                 _userAPIDbContext.Entry(updatedUser).State = EntityState.Modified;
                 await _userAPIDbContext.SaveChangesAsync();

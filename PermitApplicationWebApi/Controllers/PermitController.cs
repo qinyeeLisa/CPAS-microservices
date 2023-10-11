@@ -5,42 +5,46 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PermitApplicationWebApi.Data;
 using PermitApplicationWebApi.Models;
 
 namespace PermitApplicationWebApi.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/permit")]
     [ApiController]
     public class PermitController : ControllerBase
     {
-        private readonly PermitAPIDbContext _context;
+        private readonly PermitAPIDbContext _permitAPIDbContext;
 
-        public PermitController(PermitAPIDbContext context)
+        public PermitController(PermitAPIDbContext permitAPIDbContext)
         {
-            _context = context;
+            _permitAPIDbContext = permitAPIDbContext;
         }
 
-        // GET: api/Permit
+        // GET: api/permit
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Permit>>> GetPermits()
         {
-          if (_context.Permits == null)
-          {
-              return NotFound();
-          }
-            return await _context.Permits.ToListAsync();
+            if (_permitAPIDbContext.Permits == null)
+            {
+                return NotFound();
+            }
+            return await _permitAPIDbContext.Permits.ToListAsync();
+
+
         }
 
-        // GET: api/Permit/GetPermit/5
+
+        // GET: api/permit/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Permit>> GetPermit(int id)
         {
-          if (_context.Permits == null)
+          if (_permitAPIDbContext.Permits == null)
           {
               return NotFound();
           }
-            var permit = await _context.Permits.FindAsync(id);
+            var permit = await _permitAPIDbContext.Permits.FindAsync(id);
 
             if (permit == null)
             {
@@ -50,20 +54,20 @@ namespace PermitApplicationWebApi.Controllers
             return permit;
         }
 
-        // PUT: api/Permit/PutPermit/5
-        [HttpPut("{id}")]
+        // PUT: api/permit/editpermit/5
+        [HttpPut("editpermit/{id}")]
         public async Task<IActionResult> PutPermit(int id, Permit permit)
         {
-            if (id != permit.Id)
+            if (id != permit.PermitId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(permit).State = EntityState.Modified;
+            _permitAPIDbContext.Entry(permit).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _permitAPIDbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException) // to prevent concurrent update and delete
             {
@@ -80,43 +84,43 @@ namespace PermitApplicationWebApi.Controllers
             return NoContent(); //will return 204 no content
         }
 
-        // POST: api/Permit/PostPermit
-        [HttpPost]
+        // POST: api/permit/createpermit
+        [HttpPost("createpermit/")]
         public async Task<ActionResult<Permit>> PostPermit(Permit permit)
         {
-          if (_context.Permits == null)
+          if (_permitAPIDbContext.Permits == null)
           {
               return Problem("Entity set 'PermitAPIDbContext.Permits'  is null.");
           }
-            _context.Permits.Add(permit);
-            await _context.SaveChangesAsync();
+            _permitAPIDbContext.Permits.Add(permit);
+            await _permitAPIDbContext.SaveChangesAsync();
 
-            return CreatedAtAction("GetPermit", new { id = permit.Id }, permit);
+            return CreatedAtAction("GetPermit", new { id = permit.PermitId }, permit);
         }
 
         // DELETE: api/Permit/DeletePermit/5
-        [HttpDelete("{id}")]
+        [HttpDelete("deletepermit/{id}")]
         public async Task<IActionResult> DeletePermit(int id)
         {
-            if (_context.Permits == null)
+            if (_permitAPIDbContext.Permits == null)
             {
                 return NotFound();
             }
-            var permit = await _context.Permits.FindAsync(id);
+            var permit = await _permitAPIDbContext.Permits.FindAsync(id);
             if (permit == null)
             {
                 return NotFound();
             }
 
-            _context.Permits.Remove(permit);
-            await _context.SaveChangesAsync();
+            _permitAPIDbContext.Permits.Remove(permit);
+            await _permitAPIDbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool PermitExists(int id)
         {
-            return (_context.Permits?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_permitAPIDbContext.Permits?.Any(e => e.PermitId == id)).GetValueOrDefault();
         }
     }
 }

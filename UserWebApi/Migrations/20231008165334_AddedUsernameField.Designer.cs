@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PermitApplicationWebApi.Data;
+using UserWebApi.Data;
 
 #nullable disable
 
-namespace PermitApplicationWebApi.Migrations
+namespace UserWebApi.Migrations
 {
-    [DbContext(typeof(PermitAPIDbContext))]
-    partial class PermitAPIDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UserAPIDbContext))]
+    [Migration("20231008165334_AddedUsernameField")]
+    partial class AddedUsernameField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,55 +24,6 @@ namespace PermitApplicationWebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("PermitApplicationWebApi.Models.Permit", b =>
-                {
-                    b.Property<long>("PermitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PermitId"));
-
-                    b.Property<string>("Area")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTimeCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateTimeUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PermitId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Permit", "dbo");
-                });
 
             modelBuilder.Entity("UserWebApi.Models.User", b =>
                 {
@@ -121,17 +75,6 @@ namespace PermitApplicationWebApi.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", "dbo");
-                });
-
-            modelBuilder.Entity("PermitApplicationWebApi.Models.Permit", b =>
-                {
-                    b.HasOne("UserWebApi.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,9 @@ namespace UserWebApi.Models
         public long UserId { get; set; }
 
         [MaxLength(100)]
+        public string Username { get; set; }
+
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [MaxLength(320)]
