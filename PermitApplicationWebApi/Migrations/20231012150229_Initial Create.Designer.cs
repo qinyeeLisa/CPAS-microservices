@@ -12,7 +12,7 @@ using PermitApplicationWebApi.Data;
 namespace PermitApplicationWebApi.Migrations
 {
     [DbContext(typeof(PermitAPIDbContext))]
-    [Migration("20231012134742_Initial Create")]
+    [Migration("20231012150229_Initial Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />

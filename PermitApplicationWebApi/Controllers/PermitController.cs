@@ -38,7 +38,7 @@ namespace PermitApplicationWebApi.Controllers
 
         // GET: api/permit/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Permit>> GetPermit(int id)
+        public async Task<ActionResult<Permit>> GetPermit(long id)
         {
           if (_permitAPIDbContext.Permits == null)
           {
@@ -56,7 +56,7 @@ namespace PermitApplicationWebApi.Controllers
 
         // PUT: api/permit/editpermit/5
         [HttpPut("editpermit/{id}")]
-        public async Task<IActionResult> EditPermit(int id, Permit permit)
+        public async Task<IActionResult> EditPermit(long id, Permit permit)
         {
             if (id != permit.PermitId)
             {
@@ -86,11 +86,11 @@ namespace PermitApplicationWebApi.Controllers
 
         // POST: api/permit/createpermit
         [HttpPost("createpermit/")]
-        public async Task<ActionResult<Permit>> CreatePermit(int UserId, string Location, string Area, string Status, string CreatedBy, string UpdatedBy)
+        public async Task<ActionResult<Permit>> CreatePermit(long UserId, string Location, string Area, string Status, string CreatedBy, string UpdatedBy)
         {
           
 
-            Permit permit = new Permit
+            Permit permit = new()
             {
                 UserId = UserId,
                 StartDate = DateTime.Now,
@@ -113,7 +113,7 @@ namespace PermitApplicationWebApi.Controllers
 
         // DELETE: api/Permit/DeletePermit/5
         [HttpDelete("deletepermit/{id}")]
-        public async Task<IActionResult> DeletePermit(int id)
+        public async Task<IActionResult> DeletePermit(long id)
         {
             if (_permitAPIDbContext.Permits == null)
             {
@@ -131,7 +131,7 @@ namespace PermitApplicationWebApi.Controllers
             return Ok("Permit is deleted successfully");
         }
 
-        private bool PermitExists(int id)
+        private bool PermitExists(long id)
         {
             return (_permitAPIDbContext.Permits?.Any(e => e.PermitId == id)).GetValueOrDefault();
         }

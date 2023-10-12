@@ -14,8 +14,6 @@ namespace PermitApplicationWebApi.Migrations
             migrationBuilder.EnsureSchema(
                 name: "dbo");
 
-            
-
             migrationBuilder.CreateTable(
                 name: "Permit",
                 schema: "dbo",
@@ -60,7 +58,6 @@ namespace PermitApplicationWebApi.Migrations
                 name: "Permit",
                 schema: "dbo");
 
-      
         }
     }
 }
