@@ -24,7 +24,7 @@ namespace PermitApplicationWebApi.Models
 
         public string Area { get; set; }
 
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         public string CreatedBy { get; set; }
 
@@ -35,5 +35,6 @@ namespace PermitApplicationWebApi.Models
         public DateTime DateTimeUpdated { get; set; }
     }
 
+  
 
 }

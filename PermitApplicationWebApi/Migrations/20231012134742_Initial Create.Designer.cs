@@ -12,7 +12,7 @@ using PermitApplicationWebApi.Data;
 namespace PermitApplicationWebApi.Migrations
 {
     [DbContext(typeof(PermitAPIDbContext))]
-    [Migration("20231009152607_Initial Create")]
+    [Migration("20231012134742_Initial Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -57,8 +57,9 @@ namespace PermitApplicationWebApi.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
