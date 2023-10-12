@@ -1,30 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-namespace SearchCampsitesApi.Models
+namespace CampsiteDetailApi.Models
 {
-    [Table("Campsites", Schema = "dbo")]
-    public class Campsites
+    [Table("CampsiteDetail", Schema = "dbo")]
+    public class CampsiteDetail
     {
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long CampsiteDetailId { get; set; }
+
+        [ForeignKey("CampsiteId")]
         public long CampsiteId { get; set; }
 
-        [ForeignKey("UserId")]
-        public long UserId { get; set; }
-
         [MaxLength(500)]
-        public string Address { get; set; }
-
-        [MaxLength(500)]
-        public string CampsiteName { get; set; }
-
-
-
-        public int Size { get; set; }
-
-        [MaxLength(500)]
-        public string remarks { get; set; }
+        public string AreaName { get; set; }
 
         [MaxLength(100)]
         public string CreatedBy { get; set; }

@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PermitApplicationWebApi.Data;
+using SearchCampsitesApi.Data;
 
 #nullable disable
 
-namespace PermitApplicationWebApi.Migrations
+namespace SearchCampsitesApi.Migrations
 {
-    [DbContext(typeof(PermitAPIDbContext))]
-    partial class PermitAPIDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CampsiteAPIDbContext))]
+    [Migration("20231011125111_Intial create")]
+    partial class Intialcreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,21 +25,28 @@ namespace PermitApplicationWebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PermitApplicationWebApi.Models.Permit", b =>
+            modelBuilder.Entity("SearchCampsitesApi.Models.Campsites", b =>
                 {
-                    b.Property<long>("PermitId")
+                    b.Property<long>("CampsiteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PermitId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CampsiteId"));
 
-                    b.Property<string>("Area")
+                    b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("CampsiteName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("DateTimeCreated")
                         .HasColumnType("datetime2");
@@ -44,32 +54,27 @@ namespace PermitApplicationWebApi.Migrations
                     b.Property<DateTime>("DateTimeUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PermitId");
+                    b.Property<string>("remarks")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("CampsiteId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Permit", "dbo");
+                    b.ToTable("Campsites", "dbo");
                 });
 
             modelBuilder.Entity("UserWebApi.Models.User", b =>
@@ -114,17 +119,12 @@ namespace PermitApplicationWebApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("UserId");
 
                     b.ToTable("User", "dbo");
                 });
 
-            modelBuilder.Entity("PermitApplicationWebApi.Models.Permit", b =>
+            modelBuilder.Entity("SearchCampsitesApi.Models.Campsites", b =>
                 {
                     b.HasOne("UserWebApi.Models.User", "User")
                         .WithMany()
