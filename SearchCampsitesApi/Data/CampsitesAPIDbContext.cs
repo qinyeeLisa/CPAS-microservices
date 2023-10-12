@@ -10,5 +10,6 @@ namespace SearchCampsitesApi.Data
         }
 
         public DbSet<Campsites> Campsite { get; set; }
+       
     }
 }

@@ -14,8 +14,6 @@ namespace PermitApplicationWebApi.Migrations
             migrationBuilder.EnsureSchema(
                 name: "dbo");
 
-           
-
             migrationBuilder.CreateTable(
                 name: "Permit",
                 schema: "dbo",
@@ -28,7 +26,7 @@ namespace PermitApplicationWebApi.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -60,7 +58,6 @@ namespace PermitApplicationWebApi.Migrations
                 name: "Permit",
                 schema: "dbo");
 
-           
         }
     }
 }

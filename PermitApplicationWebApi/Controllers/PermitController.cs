@@ -38,7 +38,7 @@ namespace PermitApplicationWebApi.Controllers
 
         // GET: api/permit/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Permit>> GetPermit(int id)
+        public async Task<ActionResult<Permit>> GetPermit(long id)
         {
           if (_permitAPIDbContext.Permits == null)
           {
@@ -56,7 +56,7 @@ namespace PermitApplicationWebApi.Controllers
 
         // PUT: api/permit/editpermit/5
         [HttpPut("editpermit/{id}")]
-        public async Task<IActionResult> PutPermit(int id, Permit permit)
+        public async Task<IActionResult> EditPermit(long id, Permit permit)
         {
             if (id != permit.PermitId)
             {
@@ -86,21 +86,34 @@ namespace PermitApplicationWebApi.Controllers
 
         // POST: api/permit/createpermit
         [HttpPost("createpermit/")]
-        public async Task<ActionResult<Permit>> PostPermit(Permit permit)
+        public async Task<ActionResult<Permit>> CreatePermit(long UserId, string Location, string Area, string Status, string CreatedBy, string UpdatedBy)
         {
-          if (_permitAPIDbContext.Permits == null)
-          {
-              return Problem("Entity set 'PermitAPIDbContext.Permits'  is null.");
-          }
-            _permitAPIDbContext.Permits.Add(permit);
-            await _permitAPIDbContext.SaveChangesAsync();
+          
 
-            return CreatedAtAction("GetPermit", new { id = permit.PermitId }, permit);
+            Permit permit = new()
+            {
+                UserId = UserId,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Location = Location,
+                Area = Area,
+                Status = Status,
+                CreatedBy = CreatedBy,
+                DateTimeCreated = DateTime.Now,
+                UpdatedBy = UpdatedBy,
+                DateTimeUpdated = DateTime.Now,
+
+
+            };
+
+            await _permitAPIDbContext.Permits.AddAsync(permit);
+            await _permitAPIDbContext.SaveChangesAsync();
+            return Ok("Permit added successfully");
         }
 
         // DELETE: api/Permit/DeletePermit/5
         [HttpDelete("deletepermit/{id}")]
-        public async Task<IActionResult> DeletePermit(int id)
+        public async Task<IActionResult> DeletePermit(long id)
         {
             if (_permitAPIDbContext.Permits == null)
             {
@@ -115,10 +128,10 @@ namespace PermitApplicationWebApi.Controllers
             _permitAPIDbContext.Permits.Remove(permit);
             await _permitAPIDbContext.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Permit is deleted successfully");
         }
 
-        private bool PermitExists(int id)
+        private bool PermitExists(long id)
         {
             return (_permitAPIDbContext.Permits?.Any(e => e.PermitId == id)).GetValueOrDefault();
         }

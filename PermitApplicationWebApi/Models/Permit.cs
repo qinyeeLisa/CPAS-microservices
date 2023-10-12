@@ -14,7 +14,7 @@ namespace PermitApplicationWebApi.Models
         [ForeignKey("UserId")]
         public long UserId { get; set; } // Foreign key
 
-        public User User { get; set; } // Navigation property to related User entity
+        internal readonly User User; // Navigation property to related User entity
 
         public DateTime StartDate { get; set; }
 
@@ -24,7 +24,7 @@ namespace PermitApplicationWebApi.Models
 
         public string Area { get; set; }
 
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         public string CreatedBy { get; set; }
 
@@ -35,5 +35,7 @@ namespace PermitApplicationWebApi.Models
         public DateTime DateTimeUpdated { get; set; }
     }
 
+  
+  
 
 }
