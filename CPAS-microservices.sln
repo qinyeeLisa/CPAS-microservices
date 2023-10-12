@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchCampsitesApi", "Searc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnquiryAppStatusApi", "EnquiryAppStatusApi\EnquiryAppStatusApi.csproj", "{DD3F2501-40F2-4112-A074-7A49DB28A987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampsiteDetailApi", "CampsiteDetailApi\CampsiteDetailApi.csproj", "{0F57B972-1DFD-451A-8D04-423152BBEE7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{DD3F2501-40F2-4112-A074-7A49DB28A987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3F2501-40F2-4112-A074-7A49DB28A987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3F2501-40F2-4112-A074-7A49DB28A987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F57B972-1DFD-451A-8D04-423152BBEE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F57B972-1DFD-451A-8D04-423152BBEE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F57B972-1DFD-451A-8D04-423152BBEE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F57B972-1DFD-451A-8D04-423152BBEE7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{86F5CBBC-B984-48E7-A706-D925F3B0B023} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 		{CDE67801-5FE6-4C10-A5C2-BCCF6AA4B1AD} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 		{DD3F2501-40F2-4112-A074-7A49DB28A987} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
+		{0F57B972-1DFD-451A-8D04-423152BBEE7D} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E566C961-7672-4FE6-93DD-F08BB574EE2D}
