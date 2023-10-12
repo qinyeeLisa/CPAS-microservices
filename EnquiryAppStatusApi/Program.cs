@@ -1,5 +1,6 @@
+
 using Microsoft.EntityFrameworkCore;
-using PermitApplicationWebApi.Data;
+using EnquiryAppStatusApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

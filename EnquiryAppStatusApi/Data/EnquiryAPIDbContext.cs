@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EnquiryAppStatusApi.Models;
+using Microsoft.EntityFrameworkCore;
 using PermitApplicationWebApi.Models;
 
 namespace EnquiryAppStatusApi.Data
