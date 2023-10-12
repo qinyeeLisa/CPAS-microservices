@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using UserWebApi.Models;
 namespace SearchCampsitesApi.Models
 {
     [Table("Campsites", Schema = "dbo")]
@@ -20,7 +19,6 @@ namespace SearchCampsitesApi.Models
         [MaxLength(500)]
         public string CampsiteName { get; set; }
 
-        public User User { get; set; } // Navigation property to related User entity
 
 
         public int Size { get; set; }

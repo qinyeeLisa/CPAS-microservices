@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 // Dependency Injection of DbContext Class
 builder.Services.AddDbContext<CampsiteAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 
 
 var app = builder.Build();
@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapGet("/campsiteTest", () => "Test!");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

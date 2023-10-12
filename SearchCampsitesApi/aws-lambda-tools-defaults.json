@@ -9,7 +9,7 @@
     "package-type"         : "Zip",
     "function-handler"     : "SearchCampsitesApi",
     "function-memory-size" : 512,
-    "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_SearchCampsitesApi-5",
+    "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_SearchCampsitesApi-11",
     "function-timeout"     : 15,
     "function-runtime"     : "dotnet6",
     "function-architecture" : "x86_64",
