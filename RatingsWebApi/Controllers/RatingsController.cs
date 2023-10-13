@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RatingsWebApi.Data;
 using RatingsWebApi.Models;
+using UserWebApi.Data;
 
 namespace RatingsWebApi.Controllers
 {
@@ -23,7 +24,7 @@ namespace RatingsWebApi.Controllers
 
         [HttpGet]
         [Route("Ratings")]
-        public async Task<ActionResult<Ratings>> GetCampsiteDetail(int campsiteDetailId)
+        public async Task<ActionResult<Ratings>> GetRatings(int campsiteDetailId)
         {
             var rating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId==campsiteDetailId).FirstOrDefaultAsync();
             if (rating == null)
@@ -38,53 +39,54 @@ namespace RatingsWebApi.Controllers
 
         [HttpPost]
         [Route("CreateRatings")]
-        public async Task<IActionResult> CreateCampsiteDetail(int CampsiteId, String AreaName, String OwnerName)
+        public async Task<IActionResult> CreateRatings(int userid, String Description, int rating, String userName)
         {
-            Ratings rating = new Ratings
+            Ratings createRating = new Ratings
             {
-                RatingId = CampsiteId,
-                Description = AreaName,
-                CreatedBy = OwnerName,
-                UpdatedBy = OwnerName,
+                UserId= userid,
+                Description= Description,
+                CreatedBy = userName,
+                UpdatedBy = userName,
+                Rating = rating,
                 DateTimeCreated = DateTime.Now,
                 DateTimeUpdated = DateTime.Now
 
 
             };
             //  List<Campsites> campsitesList=await _ratingsAPIDbContext.Campsite.Where<Campsites>(site => site.Address..Contains(Address) && site.CampsiteName.Contains(CampsiteName) && site.Size==Size && site.CreatedBy.Contains(OwnerName)).ToListAsync();
-            await _ratingsAPIDbContext.Rating.AddAsync(rating);
+            await _ratingsAPIDbContext.Rating.AddAsync(createRating);
             await _ratingsAPIDbContext.SaveChangesAsync();
-            return Ok("Campsite Detail added successfully");
+            return Ok("Rating added successfully");
         }
 
         [HttpPut]
         [Route("UpdateCampsites")]
-        public async Task<IActionResult> UpdateCampsiteDetail(int CampsiteDetailId, String AreaName, String OwnerName)
+        public async Task<IActionResult> UpdateCampsiteDetail(int ratingId, String newDescription, int newRating, String OwnerName)
         {
-            var currentCampsiteDetail = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == CampsiteDetailId).FirstOrDefaultAsync();
+            var updateRating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingId).FirstOrDefaultAsync();
 
-            currentCampsiteDetail.RatingId = currentCampsiteDetail.RatingId;
-            currentCampsiteDetail.UserId = currentCampsiteDetail.UserId;
-            currentCampsiteDetail.Description = AreaName;
-            currentCampsiteDetail.CreatedBy = currentCampsiteDetail.CreatedBy;
-            currentCampsiteDetail.UpdatedBy = OwnerName;
-            currentCampsiteDetail.DateTimeCreated = currentCampsiteDetail.DateTimeCreated;
-            currentCampsiteDetail.DateTimeUpdated = DateTime.Now;
-            //  List<Campsites> campsitesList=await _ratingsAPIDbContext.Campsite.Where<Campsites>(site => site.Address..Contains(Address) && site.CampsiteName.Contains(CampsiteName) && site.Size==Size && site.CreatedBy.Contains(OwnerName)).ToListAsync();
-            _ratingsAPIDbContext.Entry(currentCampsiteDetail).State = EntityState.Detached;
-            _ratingsAPIDbContext.Entry(currentCampsiteDetail).State = EntityState.Modified;
+            updateRating.RatingId = updateRating.RatingId;
+            updateRating.UserId = updateRating.UserId;
+            updateRating.Description = newDescription;
+            updateRating.Rating = newRating;
+            updateRating.CreatedBy = updateRating.CreatedBy;
+            updateRating.UpdatedBy = OwnerName;
+            updateRating.DateTimeCreated = updateRating.DateTimeCreated;
+            updateRating.DateTimeUpdated = DateTime.Now;
+            _ratingsAPIDbContext.Entry(updateRating).State = EntityState.Detached;
+            _ratingsAPIDbContext.Entry(updateRating).State = EntityState.Modified;
             await _ratingsAPIDbContext.SaveChangesAsync();
-            return Ok("Campsite Detail Updated successfully");
+            return Ok("Rating Updated successfully");
         }
 
         [HttpDelete]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
-        public async Task<IActionResult> DeleteCampsiteDetail(int campsiteDetailId)
+        public async Task<IActionResult> DeleteCampsiteDetail(int ratingID)
         {
-            var campsiteDetail = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == campsiteDetailId).FirstOrDefaultAsync();
-            if (campsiteDetail != null)
+            var ratingDelete = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingID).FirstOrDefaultAsync();
+            if (ratingDelete != null)
             {
-                _ratingsAPIDbContext.Rating.Remove(campsiteDetail);
+                _ratingsAPIDbContext.Rating.Remove(ratingDelete);
                 await _ratingsAPIDbContext.SaveChangesAsync();
                 return Ok("Campsite Detail is deleted successfully.");
             }
