@@ -116,7 +116,7 @@ namespace UserWebApi.Controllers
 
         [HttpDelete]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
-        public async Task<IActionResult> DeleteUser(int userId)
+        public async Task<IActionResult> DeleteUser(long userId)
         {
             var currentUser = await _userAPIDbContext.User.Where(u => u.UserId == userId).FirstOrDefaultAsync();
             if (currentUser != null)
