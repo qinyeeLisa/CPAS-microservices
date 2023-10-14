@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-
+﻿using EnquiryAppStatusApi.Data;
+using EnquiryAppStatusApi.Models;
+using EnquiryAppStatusApi.Models.Dto;
+using EnquiryAppStatusApi.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnquiryAppStatusApi.Controllers
 {
@@ -8,36 +11,62 @@ namespace EnquiryAppStatusApi.Controllers
     [ApiController]
     public class EnquiryAppStatusController : ControllerBase
     {
-        // GET: api/<EnquiryAppStatusController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private readonly EnquiryAPIDbContext _enquiryAPIDbContext;
+        private readonly EnquiryService _enquiryService;
+
+        public EnquiryAppStatusController(EnquiryAPIDbContext enquiryAPIDbContext, EnquiryService enquiryService)
         {
-            return new string[] { "value1", "value2" };
+            _enquiryAPIDbContext = enquiryAPIDbContext;
+            _enquiryService = enquiryService;
         }
 
-        // GET api/<EnquiryAppStatusController>/5
+        // POST api/enquiryappstatus/createenquiry
+        [HttpPost("createenquiry")]
+        public async Task<IActionResult> CreateEnquiry([FromBody] EnquiryInfoDto enquiryInfoDto)
+        {
+            var newEnquiry = _enquiryService.MapEnquiryInfoDtoToEntity(enquiryInfoDto);
+            await _enquiryAPIDbContext.Enquiries.AddAsync(newEnquiry);
+            await _enquiryAPIDbContext.SaveChangesAsync();
+            return Ok("Enquiry is submitted successfully.");
+        }
+
+
+        // GET: api/enquiryappstatus/getenquiry/{id}
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Enquiry>> GetEnquiry(long id)
         {
-            return "value";
+            if (_enquiryAPIDbContext.Enquiries == null)
+            {
+                return NotFound("Unable to get enquiry info.");
+            }
+            var enquiry = await _enquiryAPIDbContext.Enquiries.FindAsync(id);
+
+            if (enquiry == null)
+            {
+                return NotFound("Unable to get enquiry info.");
+            }
+
+            return enquiry;
         }
 
-        // POST api/<EnquiryAppStatusController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<EnquiryAppStatusController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<EnquiryAppStatusController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // GET: api/enquiryappstatus/deleteenquiry/{id}
+        [HttpDelete("deleteenquiry/{id}")]
+        public async Task<IActionResult> DeleteEnquiry(long id)
         {
+            var currentEnquiry = await _enquiryAPIDbContext.Enquiries.Where(u => u.EnquiryId == id).FirstOrDefaultAsync();
+            if (currentEnquiry != null)
+            {
+                _enquiryAPIDbContext.Enquiries.Remove(currentEnquiry);
+                await _enquiryAPIDbContext.SaveChangesAsync();
+                return Ok("Enquiry is deleted successfully.");
+            }
+            else
+            {
+                return NotFound("Unable to delete enquiry.");
+            }
         }
     }
 }
