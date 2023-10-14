@@ -1,0 +1,21 @@
+
+{
+    "region" : "ap-southeast-1",
+    "profile" : "devTeam11",
+    "configuration" : "Release",
+    "framework"     : "net6.0",
+    "function-name" : "FeedbackWebApi",
+    "function-description" : "",
+    "package-type"         : "Zip",
+    "function-handler"     : "FeedbackWebApi",
+    "function-memory-size" : 512,
+    "function-role"        : "arn:aws:iam::613133681863:role/service-role/FeedbackWebApi-role-tjgdgqzj",
+    "function-timeout"     : 15,
+    "function-runtime"     : "dotnet6",
+    "function-architecture" : "x86_64",
+    "function-subnets"      : "",
+    "function-security-groups" : "",
+    "tracing-mode"             : "PassThrough",
+    "environment-variables"    : "\"ASPNETCORE_ENVIRONMENT\"=\"Development\"",
+    "image-tag"                : ""
+}
