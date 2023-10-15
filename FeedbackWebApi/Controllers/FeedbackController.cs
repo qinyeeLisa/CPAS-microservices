@@ -40,7 +40,7 @@ namespace FeedbackWebApi.Controllers
         [HttpGet("GetFeedback")]
         public async Task<IActionResult> GetFeedback(long userId)
         {
-            var existingFeedback = _feedbackAPIDbContext.Feedback.Where(u => u.UserId == userId).ToList();
+            var existingFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.UserId == userId).ToListAsync();
             if (existingFeedback.Any())
             {
                 return Ok(existingFeedback);
@@ -91,5 +91,7 @@ namespace FeedbackWebApi.Controllers
                 return NotFound();
             }
         }
+
+
     }
 }
