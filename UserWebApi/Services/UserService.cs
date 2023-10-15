@@ -14,6 +14,7 @@ namespace UserWebApi.Services
             return new User
             {
                 UserId = userInfo.Id,
+                Username = userInfo.Username,
                 Name = userInfo.Name,
                 Email = userInfo.Email,
                 Password = userInfo.Password,
@@ -26,6 +27,7 @@ namespace UserWebApi.Services
             return new UserProfileViewModel
             {
                 Id = user.UserId,
+                Username = user.Username,
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role,
@@ -35,6 +37,5 @@ namespace UserWebApi.Services
                 DateTimeUpdated = user.DateTimeUpdated
             };
         }
-
     }
 }

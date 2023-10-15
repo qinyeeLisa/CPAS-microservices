@@ -15,22 +15,24 @@ namespace UserWebApi.Controllers
     {
         private readonly UserAPIDbContext _userAPIDbContext;
         private readonly UserService _userService;
+        private readonly IEmailSender _emailSender;
 
-        public UserController(UserAPIDbContext userAPIDbContext, UserService userService)
+        public UserController(UserAPIDbContext userAPIDbContext, UserService userService, IEmailSender emailSender)
         {
             _userAPIDbContext = userAPIDbContext;
             _userService = userService;
+            _emailSender = emailSender;
         }
 
         [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            var user = await _userAPIDbContext.User.Where(u => u.Email == loginDto.Email && u.Password == loginDto.Password).FirstOrDefaultAsync();
+            var user = await _userAPIDbContext.User.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
 
             if (user != null)
             {
-                return Ok("Login Successful.");
+                return Ok(user);
             }
             else
             {
@@ -44,7 +46,7 @@ namespace UserWebApi.Controllers
         {
             var isUsernameExist = await _userAPIDbContext.User.Where(u => u.Username == userInfo.Username).FirstOrDefaultAsync();
 
-            if (isUsernameExist != null)
+            if (isUsernameExist == null)
             {
                 var isEmailExist = await _userAPIDbContext.User.Where(u => u.Email == userInfo.Email).FirstOrDefaultAsync();
                 if (isEmailExist == null)
@@ -55,8 +57,11 @@ namespace UserWebApi.Controllers
                     newUser.UpdatedBy = userInfo.Username;
                     newUser.DateTimeUpdated = DateTime.Now;
                     await _userAPIDbContext.User.AddAsync(newUser);
+                    
+
+                    await _emailSender.SendEmailAsync(userInfo.Email, "Registration Successful", "Thank you for joining us!");
                     await _userAPIDbContext.SaveChangesAsync();
-                    return Ok("User is created successfully");
+                    return Ok(newUser);
                 }
                 else
                 {
@@ -106,7 +111,7 @@ namespace UserWebApi.Controllers
                 _userAPIDbContext.Entry(currentUser).State = EntityState.Detached;
                 _userAPIDbContext.Entry(updatedUser).State = EntityState.Modified;
                 await _userAPIDbContext.SaveChangesAsync();
-                return Ok("User is updated successfully");             
+                return Ok(currentUser);             
             }
             else
             {
@@ -114,7 +119,7 @@ namespace UserWebApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteUser")]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteUser(long userId)
         {
