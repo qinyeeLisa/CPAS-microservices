@@ -11,9 +11,9 @@ namespace EnquiryAppStatusApi.Services
         {
             return new Enquiry
             {
-                EnquiryId = enquiryInfoDto.EnquiryId,
+              
                 PermitId = enquiryInfoDto.PermitId,
-                Status = enquiryInfoDto.Status,
+                Status = "Pending",
                 CreatedBy = enquiryInfoDto.CreatedBy,
                 DateTimeCreated = DateTime.Now,
                 UpdatedBy = enquiryInfoDto.UpdatedBy,
