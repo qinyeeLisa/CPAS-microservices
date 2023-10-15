@@ -3,8 +3,7 @@ using FeedbackWebApi.Models.Dto;
 using FeedbackWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using UserWebApi.Data;
-using UserWebApi.Services;
+using UserWebApi.Models;
 
 namespace FeedbackWebApi.Controllers
 {
@@ -24,52 +23,60 @@ namespace FeedbackWebApi.Controllers
         [HttpPost("AddFeedback")]
         public async Task<IActionResult> AddFeedback([FromBody] FeedbackInfoDto feedbackInfo)
         {
+            var currentUser = _feedbackAPIDbContext.User.Where(u => u.UserId == feedbackInfo.UserId).FirstOrDefault();
             var newFeedback = _feedbackService.MapFeedbackInfoDtoToEntity(feedbackInfo);
+            if (currentUser != null)
+            {
+                newFeedback.CreatedBy = currentUser.Username;
+                newFeedback.DateTimeCreated = DateTime.Now;
+                newFeedback.UpdatedBy = currentUser.Username;
+                newFeedback.DateTimeUpdated = DateTime.Now;
+            }
             await _feedbackAPIDbContext.Feedback.AddAsync(newFeedback);
             await _feedbackAPIDbContext.SaveChangesAsync();
-            return Ok("Feedback is submitted successfully.");
+            return Ok();
         }
 
-        [HttpPost("GetFeedback")]
-        public async Task<IActionResult> GetFeedback(long feedbackId)
+        [HttpGet("GetFeedback")]
+        public async Task<IActionResult> GetFeedback(long userId)
         {
-            var feedback = await _feedbackAPIDbContext.Feedback.Where(u => u.FeedbackId == feedbackId).FirstOrDefaultAsync();
-
-            if (feedback != null)
+            var existingFeedback = _feedbackAPIDbContext.Feedback.Where(u => u.UserId == userId).ToList();
+            if (existingFeedback.Any())
             {
-                //var feedbackInfo = _userService.MapEntityToUserProfileViewModel(user);
-                return Ok(feedback);
+                return Ok(existingFeedback);
             }
             else
             {
-                return NotFound("Unable to get feedback info.");
+                return NotFound();
             }
         }
 
+        [HttpPost("UpdateFeedback")]
+        public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackInfoDto feedbackInfo)
+        {
+            var currentFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.FeedbackId == feedbackInfo.FeedbackId).FirstOrDefaultAsync();
 
-        //[HttpPost("UpdateFeedback")]
-        //public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackInfoDto feedbackInfo)
-        //{
-        //    var currentFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.FeedbackId == feedbackInfo.FeedbackId).FirstOrDefaultAsync();
-        //    if (currentFeedback != null)
-        //    {
-        //        var updatedFeedback = _feedbackService.MapFeedbackInfoDtoToEntity(userInfo);
-        //        updatedFeedback.CreatedBy = currentFeedback.Username;
-        //        updatedFeedback.DateTimeCreated = currentFeedback.DateTimeCreated;
-        //        updatedFeedback.UpdatedBy = currentFeedback.Username;
-        //        updatedFeedback.DateTimeUpdated = DateTime.Now;
-        //        _userAPIDbContext.Entry(currentUser).State = EntityState.Detached;
-        //        _userAPIDbContext.Entry(updatedFeedback).State = EntityState.Modified;
-        //        await _userAPIDbContext.SaveChangesAsync();
-        //        return Ok("User is updated successfully");
-        //    }
-        //    else
-        //    {
-        //        return NotFound("Unable to update user.");
-        //    }
-        //}
+            var currentUser = _feedbackAPIDbContext.User.Where(u => u.UserId == feedbackInfo.UserId).FirstOrDefault();
 
-        [HttpDelete]
+            if (currentFeedback != null && currentUser != null)
+            {
+                var updatedFeedback = _feedbackService.MapFeedbackInfoDtoToEntity(feedbackInfo);
+                updatedFeedback.CreatedBy = currentUser!.Username;
+                updatedFeedback.DateTimeCreated = currentFeedback.DateTimeCreated;
+                updatedFeedback.UpdatedBy = currentUser!.Username;
+                updatedFeedback.DateTimeUpdated = DateTime.Now;
+                _feedbackAPIDbContext.Entry(currentFeedback).State = EntityState.Detached;
+                _feedbackAPIDbContext.Entry(updatedFeedback).State = EntityState.Modified;
+                await _feedbackAPIDbContext.SaveChangesAsync();
+                return Ok(updatedFeedback);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpDelete("DeleteFeedback")]
         public async Task<IActionResult> DeleteFeedback(long feedbackId)
         {
             var currentFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.FeedbackId == feedbackId).FirstOrDefaultAsync();
@@ -77,11 +84,11 @@ namespace FeedbackWebApi.Controllers
             {
                 _feedbackAPIDbContext.Feedback.Remove(currentFeedback);
                 await _feedbackAPIDbContext.SaveChangesAsync();
-                return Ok("Feedback is deleted successfully.");
+                return Ok();
             }
             else
             {
-                return NotFound("Unable to delete feedback.");
+                return NotFound();
             }
         }
     }

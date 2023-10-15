@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FeedbackWebApi.Models;
+using UserWebApi.Models;
 
 namespace FeedbackWebApi.Data
 {
@@ -10,6 +11,8 @@ namespace FeedbackWebApi.Data
         }
 
         public DbSet<Feedback> Feedback { get; set; }
+
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

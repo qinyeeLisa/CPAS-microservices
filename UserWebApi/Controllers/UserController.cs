@@ -24,9 +24,9 @@ namespace UserWebApi.Controllers
 
         [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            var user = await _userAPIDbContext.User.Where(u => u.Email == loginDto.Email && u.Password == loginDto.Password).FirstOrDefaultAsync();
+            var user = await _userAPIDbContext.User.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
 
             if (user != null)
             {
