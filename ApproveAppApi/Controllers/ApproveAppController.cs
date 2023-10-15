@@ -40,6 +40,24 @@ namespace ApproveAppApi.Controllers
 
         }
 
+        // GET: api/approve/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Permit>> GetPermit(long id)
+        {
+            if (_approveAPIDbContext.Permit == null)
+            {
+                return NotFound("Unable to find the permit");
+            }
+            var permit = await _approveAPIDbContext.Permit.FindAsync(id);
+
+            if (permit == null)
+            {
+                return NotFound("Unable to find the permit");
+            }
+
+            return permit;
+        }
+
 
     }
 }
