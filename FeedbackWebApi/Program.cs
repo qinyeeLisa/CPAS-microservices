@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using FeedbackWebApi.Data;
+using FeedbackWebApi.Services;
 using Microsoft.Extensions.Configuration;
-using PermitApplicationWebApi.Data;
-using PermitApplicationWebApi.Services;
+using UserWebApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,17 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(gen =>
 {
-    gen.DocumentFilter<CustomerSwaggerFilter>();
+    gen.DocumentFilter<CustomSwaggerFilter>();
     gen.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-}
-);
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
-
-// Dependency Injection of DbContext Class
-builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-
+});
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
+builder.Services.AddScoped<FeedbackService>();
+builder.Services.AddDbContext<FeedbackAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

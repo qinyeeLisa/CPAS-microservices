@@ -1,7 +1,6 @@
+using ApproveAppApi.Data;
+using ApproveAppApi.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using PermitApplicationWebApi.Data;
-using PermitApplicationWebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +18,7 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
 
 // Dependency Injection of DbContext Class
-builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
+builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
