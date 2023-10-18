@@ -15,7 +15,7 @@ builder.Services.AddDbContext<RatingsAPIDbContext>(options => options.UseSqlServ
 
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 
 var app = builder.Build();
 

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RatingsWebApi.Data;
 using RatingsWebApi.Models;
-using UserWebApi.Data;
 
 namespace RatingsWebApi.Controllers
 {
@@ -24,9 +23,9 @@ namespace RatingsWebApi.Controllers
 
         [HttpGet]
         [Route("Ratings")]
-        public async Task<ActionResult<Ratings>> GetRatings(int campsiteDetailId)
+        public async Task<ActionResult<Ratings>> GetRatings(int RatingId)
         {
-            var rating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId==campsiteDetailId).FirstOrDefaultAsync();
+            var rating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId== RatingId).FirstOrDefaultAsync();
             if (rating == null)
             {
                 return NotFound();
@@ -60,8 +59,8 @@ namespace RatingsWebApi.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateCampsites")]
-        public async Task<IActionResult> UpdateCampsiteDetail(int ratingId, String newDescription, int newRating, String OwnerName)
+        [Route("UpdateRatings")]
+        public async Task<IActionResult> UpdateRatings(int ratingId, String newDescription, int newRating, String OwnerName)
         {
             var updateRating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingId).FirstOrDefaultAsync();
 
@@ -81,18 +80,18 @@ namespace RatingsWebApi.Controllers
 
         [HttpDelete]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
-        public async Task<IActionResult> DeleteCampsiteDetail(int ratingID)
+        public async Task<IActionResult> DeleteRatings(int ratingID)
         {
             var ratingDelete = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingID).FirstOrDefaultAsync();
             if (ratingDelete != null)
             {
                 _ratingsAPIDbContext.Rating.Remove(ratingDelete);
                 await _ratingsAPIDbContext.SaveChangesAsync();
-                return Ok("Campsite Detail is deleted successfully.");
+                return Ok("Rating is deleted successfully.");
             }
             else
             {
-                return NotFound("Unable to delete campSite.");
+                return NotFound("Unable to delete Rating.");
             }
         }
     }

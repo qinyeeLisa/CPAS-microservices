@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using UserWebApi.Models;
 
 namespace RatingsWebApi.Models
 {
@@ -18,8 +17,6 @@ namespace RatingsWebApi.Models
 
             [MaxLength(500)]
             public string Description { get; set; }
-
-            public User User { get; set; }
 
             public int Rating { get; set; }
 
