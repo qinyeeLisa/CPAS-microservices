@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampsiteDetailApi", "Campsi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedbackWebApi", "FeedbackWebApi\FeedbackWebApi.csproj", "{180BAE90-9775-4AF3-98E5-DB2DB184DEF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApproveAppApi", "ApproveAppApi\ApproveAppApi.csproj", "{39A0B6B8-8DA6-4F5B-A094-65F133FE9A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApproveAppApi", "ApproveAppApi\ApproveAppApi.csproj", "{39A0B6B8-8DA6-4F5B-A094-65F133FE9A79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
