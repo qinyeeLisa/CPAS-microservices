@@ -1,7 +1,7 @@
 
 {
     "region" : "ap-southeast-1",
-    "profile" : "PracticeModule",
+    "profile" : "Team11",
     "configuration" : "Release",
     "framework"     : "net6.0",
     "function-name" : "RatingsWebApi",
