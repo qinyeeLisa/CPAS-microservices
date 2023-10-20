@@ -1,13 +1,13 @@
 
 {
     "region" : "ap-southeast-1",
-    "profile" : "PracticeModule",
+    "profile" : "Team11",
     "configuration" : "Release",
     "framework"     : "net6.0",
     "function-name" : "CampsiteDetailApi",
     "function-description" : "",
     "package-type"         : "Zip",
-    "function-handler"     : "LambdaTest::LambdaTest.LambdaHandler::handleRequest",
+    "function-handler"     : "CampsiteDetailApi",
     "function-memory-size" : 512,
     "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_CampsiteDetailApi",
     "function-timeout"     : 15,

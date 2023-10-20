@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen(gen =>
 }
 );
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
-
+builder.Services.AddScoped<PermitService>();
 // Dependency Injection of DbContext Class
 builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -32,6 +32,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials());
+
 
 app.UseHttpsRedirection();
 

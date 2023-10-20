@@ -1,6 +1,8 @@
-using ApproveAppApi.Data;
-using ApproveAppApi.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RatingsWebApi.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,17 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(gen =>
-{
-    gen.DocumentFilter<CustomerSwaggerFilter>();
-    gen.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-}
-);
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
+builder.Services.AddDbContext<RatingsAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Dependency Injection of DbContext Class
-builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSwaggerGen();
 
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 
 var app = builder.Build();
 
@@ -37,6 +33,8 @@ app.UseCors(x => x
                 .AllowCredentials());
 
 app.UseHttpsRedirection();
+
+app.MapGet("/RatingsTest", () => "Test!");
 
 app.UseAuthorization();
 
