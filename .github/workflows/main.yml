@@ -15,7 +15,7 @@ jobs:
       - name: AWS CLI
         run: dotnet tool install -g Amazon.Lambda.Tools
       - name: Build
-        run: dotnet build
+        run: dotnet build -c debug
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
