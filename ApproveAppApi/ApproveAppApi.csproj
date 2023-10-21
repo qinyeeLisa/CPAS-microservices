@@ -25,12 +25,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+
   <ItemGroup>
     <Reference Include="PermitApplicationWebApi">
-      <HintPath>..\PermitApplicationWebApi\bin\Release\net6.0\PermitApplicationWebApi.dll</HintPath>
+      <HintPath>References\PermitApplicationWebApi.dll</HintPath>
     </Reference>
     <Reference Include="UserWebApi">
-      <HintPath>..\UserWebApi\bin\Release\net6.0\linux-x64\UserWebApi.dll</HintPath>
+      <HintPath>References\UserWebApi.dll</HintPath>
     </Reference>
   </ItemGroup>
 
