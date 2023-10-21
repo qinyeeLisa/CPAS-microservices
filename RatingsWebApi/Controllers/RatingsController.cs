@@ -78,7 +78,7 @@ namespace RatingsWebApi.Controllers
             return Ok("Rating Updated successfully");
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteRatings")]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteRatings(int ratingID)
         {

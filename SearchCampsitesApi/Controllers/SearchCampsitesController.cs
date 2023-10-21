@@ -54,7 +54,7 @@ namespace SearchCampsitesApi.Controllers
 
         [HttpPost]
         [Route("CreateCampsites")]
-        public async Task<IActionResult> CreateCampsites(int UserId, String Address, String CampsiteName, int Size, string Remarks, String OwnerName)
+        public async Task<IActionResult> CreateCampsites(int UserId, String Address, String CampsiteName, int Size, String Remarks, String OwnerName)
         {
             Campsites campsite = new Campsites
             {
@@ -76,7 +76,7 @@ namespace SearchCampsitesApi.Controllers
             return Ok("Campsite added successfully");
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteCampsite")]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteCampsite(int campsiteId)
         {

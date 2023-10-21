@@ -78,7 +78,7 @@ namespace CampsiteDetailApi.Controllers
             return Ok("Campsite Detail Updated successfully");
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteCampsiteDetail")]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteCampsiteDetail(int campsiteDetailId)
         {
