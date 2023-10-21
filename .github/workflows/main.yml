@@ -45,6 +45,6 @@ jobs:
       uses: aws-actions/aws-lambda-deploy@v0
       with:
         function-name: UserWebApi-8Oct
-          handler: UserWebApi
-          deployment-package: ./deployment/
+        handler: UserWebApi
+        deployment-package: ./deployment/
         
