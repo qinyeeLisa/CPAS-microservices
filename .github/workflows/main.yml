@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -36,7 +36,7 @@ jobs:
           cp -r ./path-to-external-dll/ ./deployment/
         working-directory: ${{ github.workspace }}
               
-      - name: Deploy to AWS Lambda
+      - name: Deploy to AWS Lambda for User Web API
         uses: aws-actions/aws-lambda-deploy@v0
         with:
           function-name: UserWebApi-8Oct
