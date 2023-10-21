@@ -1,36 +1,45 @@
-name: .NET
+name: Deploy to AWS Lambda
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-defaults:
-  run:
-    working-directory: ./
+    branches:
+      - main
 
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
-    env: 
-      working-directory: ./
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    - name: AWS CLI
-      run: dotnet tool install -g Amazon.Lambda.Tools
-    - name: Restore dependencies
-      run: dotnet restore CPAS-microservices.sln
-    - name: Build
-      run: dotnet build --no-restore CPAS-microservices.sln
-    - name: Deploy to Lambda
-      working-directory: ./
-      run: dotnet lambda deploy-serverless
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.x
+
+      - name: Restore packages
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build
+
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Package with dependencies
+        run: |
+          mkdir -p deployment
+          cp -r ./publish/* ./deployment/
+          cp -r ./path-to-external-dll/ ./deployment/
+        working-directory: ${{ github.workspace }}
+
+      - name: Deploy to AWS Lambda
+        uses: aws-actions/aws-lambda-deploy@v0
+        with:
+          function-name: UserWebApi-8Oct
+          handler: UserWebApi
+          deployment-package: ./deployment/
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
