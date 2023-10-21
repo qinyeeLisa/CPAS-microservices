@@ -33,7 +33,6 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
-app.MapGet("/campsiteDetailTest", () => "Test!");
 
 app.UseAuthorization();
 
