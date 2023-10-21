@@ -1,4 +1,4 @@
-name: Deploy to AWS Lambda
+name: Test
 
 on:
   push:
