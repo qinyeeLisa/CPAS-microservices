@@ -8,7 +8,7 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'CPAS-microservice.sln'
+      SOLUTION: 'CPAS-microservices.sln'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
