@@ -4,8 +4,8 @@ on:
     branches:
       - master
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@master
       - name: Setup .NET 6.0
