@@ -23,8 +23,8 @@ namespace ApproveAppApi.Controllers
             _permitService = permitService;
         }
 
-        // POST api/approve/{id}
-        [HttpPost("{id}")]
+        // POST api/approve/
+        [HttpPost]
         public async Task<ActionResult> ApproveApplication([FromBody] PermitInfoDto permitInfo)
         {
 
