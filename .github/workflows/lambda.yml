@@ -1,0 +1,44 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore packages
+      run: dotnet restore
+    - name: Build
+      run: dotnet build 
+    - name: Publish
+      run: dotnet publish -c Release -o ./publish
+    - name: Package with dependencies
+      run: |
+        mkdir -p deployment
+        cp -r ./publish/* ./deployment/
+        cp -r ./path-to-external-dll/ ./deployment/
+      working-directory: ${{ github.workspace }}
+    - name: Deploy to AWS Lambda
+      uses: aws-actions/aws-lambda-deploy@v0
+      with:
+        function-name: UserWebApi-8Oct
+        handler: UserWebApi
+        deployment-package: ./deployment/
+        
