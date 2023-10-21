@@ -8,14 +8,14 @@ on:
 
 defaults:
   run:
-    working-directory: ./src
+    working-directory: ./
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
     env: 
-      working-directory: ./src
+      working-directory: ./
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -32,5 +32,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore CPAS-microservices.sln
     - name: Deploy to Lambda
-      working-directory: ./src/Microservices
+      working-directory: ./
       run: dotnet lambda deploy-serverless
