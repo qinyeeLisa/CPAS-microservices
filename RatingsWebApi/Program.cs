@@ -34,7 +34,6 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
-app.MapGet("/RatingsTest", () => "Test!");
 
 app.UseAuthorization();
 
