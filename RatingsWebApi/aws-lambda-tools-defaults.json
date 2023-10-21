@@ -9,7 +9,7 @@
     "package-type"         : "Zip",
     "function-handler"     : "RatingsWebApi",
     "function-memory-size" : 512,
-    "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_RatingsWebApi",
+    "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_RatingsWebApi-0",
     "function-timeout"     : 15,
     "function-runtime"     : "dotnet6",
     "function-architecture" : "x86_64",

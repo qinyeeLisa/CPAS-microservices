@@ -10,7 +10,7 @@ using UserWebApi.Services;
 namespace UserWebApi.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("userapi/user")]
     public class UserController : ControllerBase
     {
         private readonly UserAPIDbContext _userAPIDbContext;

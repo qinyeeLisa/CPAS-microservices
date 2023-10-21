@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 namespace CampsiteDetailApi.Controllers
 {
     [ApiController]
-    [Route("api/campsiteDetail")]
+    [Route("campsitedetailapi/campsiteDetail")]
     public class CampsiteDetailApiController : ControllerBase
     {
         private readonly CampsiteDetailAPIDbContext _campsiteDetailAPIDbContext;

@@ -8,7 +8,7 @@ using UserWebApi.Models;
 namespace FeedbackWebApi.Controllers
 {
     [ApiController]
-    [Route("api/feedback")]
+    [Route("feedbackapi/feedback")]
     public class FeedbackController : ControllerBase
     {
         private readonly FeedbackAPIDbContext _feedbackAPIDbContext;

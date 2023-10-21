@@ -14,7 +14,7 @@ using PermitApplicationWebApi.Services;
 
 namespace PermitApplicationWebApi.Controllers
 {
-    [Route("api/permit")]
+    [Route("permitapi/permit")]
     [ApiController]
     public class PermitController : ControllerBase
     {

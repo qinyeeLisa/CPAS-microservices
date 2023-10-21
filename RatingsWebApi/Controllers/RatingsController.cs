@@ -6,7 +6,7 @@ using RatingsWebApi.Models;
 
 namespace RatingsWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("ratingsapi/[controller]")]
     [ApiController]
     public class RatingsController : ControllerBase
     {

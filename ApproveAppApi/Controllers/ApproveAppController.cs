@@ -9,7 +9,7 @@ using PermitApplicationWebApi.Models;
 
 namespace ApproveAppApi.Controllers
 {
-    [Route("api/approve")]
+    [Route("approveapi/approve")]
     [ApiController]
     public class ApproveAppController : ControllerBase
     {
