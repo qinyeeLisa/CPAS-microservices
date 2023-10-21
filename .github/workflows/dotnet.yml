@@ -38,7 +38,7 @@ jobs:
       working-directory: ${{ github.workspace }}
             
     - name: Deploy to AWS Lambda for User Web API
-      uses: aws-actions/aws-lambda-deploy@v0
+      uses: aws-actions/aws-lambda-deploy@v3
       with:
         function-name: UserWebApi-8Oct
         handler: UserWebApi
