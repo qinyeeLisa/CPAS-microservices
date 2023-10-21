@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PermitApplicationWebApi\PermitApplicationWebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PermitApplicationWebApi">
       <HintPath>..\PermitApplicationWebApi\bin\Release\net6.0\PermitApplicationWebApi.dll</HintPath>
     </Reference>
