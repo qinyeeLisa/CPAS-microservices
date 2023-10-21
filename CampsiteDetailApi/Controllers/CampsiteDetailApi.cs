@@ -35,7 +35,18 @@ namespace CampsiteDetailApi.Controllers
             return campsiteDetail;
         }
         /*returns the size list in the case frontEnd wants to get the list of sizes available as a dropdown*/
-       
+        [HttpGet]
+        [Route("CampsiteDetailListByCampId")]
+        public async Task<ActionResult<IEnumerable<CampsiteDetail>>> GetCampsiteDetailListByCampId(int campsiteId)
+        {
+            var campsiteDetail = await _campsiteDetailAPIDbContext.CampsiteDetail.Where(u => u.CampsiteId == campsiteId).ToListAsync();
+            if (campsiteDetail == null)
+            {
+                return NotFound();
+            }
+
+            return campsiteDetail;
+        }
 
         [HttpPost]
         [Route("CreateCampsites")]
