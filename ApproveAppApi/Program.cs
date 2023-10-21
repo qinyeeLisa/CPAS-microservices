@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(gen =>
 }
 );
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
-
+builder.Services.AddScoped<PermitService>();
 // Dependency Injection of DbContext Class
 builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
