@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserWebApi", "UserWebApi\UserWebApi.csproj", "{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PermitApplicationWebApi", "PermitApplicationWebApi\PermitApplicationWebApi.csproj", "{86F5CBBC-B984-48E7-A706-D925F3B0B023}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55} = {F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{481272E7-5576-4662-BE09-F8A88A6E0D5F}"
 EndProject
@@ -16,8 +19,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampsiteDetailApi", "CampsiteDetailApi\CampsiteDetailApi.csproj", "{0F57B972-1DFD-451A-8D04-423152BBEE7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedbackWebApi", "FeedbackWebApi\FeedbackWebApi.csproj", "{180BAE90-9775-4AF3-98E5-DB2DB184DEF8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55} = {F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApproveAppApi", "ApproveAppApi\ApproveAppApi.csproj", "{39A0B6B8-8DA6-4F5B-A094-65F133FE9A79}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86F5CBBC-B984-48E7-A706-D925F3B0B023} = {86F5CBBC-B984-48E7-A706-D925F3B0B023}
+		{F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55} = {F8BC3DB3-2C15-4FE0-93A5-C75A9813BF55}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RatingsWebApi", "RatingsWebApi\RatingsWebApi.csproj", "{DA00727C-EB87-44C3-BF7A-432290ED7BE4}"
 EndProject
