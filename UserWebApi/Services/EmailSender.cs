@@ -10,7 +10,7 @@ namespace UserWebApi.Services
         public void SendEmail(string userEmail, string subject)
         {
             string body = string.Empty;
-            using (StreamReader reader = new StreamReader("Templates/EmailTemplate.html"))
+            using (StreamReader reader = new StreamReader("wwwroot/EmailTemplate.html"))
 
             {
                 body = reader.ReadToEnd();

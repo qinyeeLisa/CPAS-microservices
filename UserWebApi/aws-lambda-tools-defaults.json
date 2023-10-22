@@ -1,7 +1,7 @@
 
 {
     "region" : "ap-southeast-1",
-    "profile" : "Team11",
+    "profile" : "devTeam11",
     "configuration" : "Release",
     "framework"     : "net6.0",
     "function-name" : "UserWebApi-8Oct",
