@@ -38,7 +38,7 @@ jobs:
           cp -r ./path-to-external-dll/ ./deployment/
         working-directory: ${{ github.workspace }}
       - name: Deploy to AWS Lambda
-        uses: aws-actions/aws-lambda-deploy@v0
+        uses: aws-actions/aws-lambda-deploy@v1
         with:
           function-name: UserWebApi-8Oct
           handler: UserWebApi
