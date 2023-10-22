@@ -59,7 +59,7 @@ namespace UserWebApi.Controllers
                     await _userAPIDbContext.User.AddAsync(newUser);
                     
 
-                    await _emailSender.SendEmailAsync(userInfo.Email, "Registration Successful", "Thank you for joining us!");
+                    _emailSender.SendEmail(userInfo.Email, "Registration Successful");
                     await _userAPIDbContext.SaveChangesAsync();
                     return Ok(newUser);
                 }

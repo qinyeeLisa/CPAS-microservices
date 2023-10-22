@@ -1,28 +1,47 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Hosting.Server;
+using Grpc.Core;
 
 namespace UserWebApi.Services
 {
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string userEmail, string subject, string message)
+        public void SendEmail(string userEmail, string subject)
         {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader("Templates/EmailTemplate.html"))
+
+            {
+                body = reader.ReadToEnd();
+            }
+
+
             var sender = "projecttestmail314@gmail.com";
             var pwd = "qrxi juot yepu ccyh";
 
-            var client = new SmtpClient("smtp.gmail.com", 587)
-            {
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(sender, pwd)
-            };
+            using (MailMessage mailMessage = new MailMessage())
 
-            return client.SendMailAsync(
-                new MailMessage(from: sender,
-                                to: userEmail,
-                                subject,
-                                message
-                                ));
+            {
+                mailMessage.From = new MailAddress(sender);
+
+                mailMessage.Subject = subject;
+
+                mailMessage.Body = body;
+
+                mailMessage.IsBodyHtml = true;
+
+                mailMessage.To.Add(new MailAddress(userEmail));
+
+                var client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(sender, pwd)
+                };
+
+                client.Send(mailMessage);
+            }
         }
     }
 }
