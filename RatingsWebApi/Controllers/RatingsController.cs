@@ -34,7 +34,18 @@ namespace RatingsWebApi.Controllers
             return rating;
         }
         /*returns the size list in the case frontEnd wants to get the list of sizes available as a dropdown*/
+        [HttpGet]
+        [Route("RatingsByCampsiteId")]
+        public async Task<ActionResult<IEnumerable<Ratings>>> GetRatingsByCampsiteId(int campsiteID)
+        {
+            var rating = await _ratingsAPIDbContext.Rating.Where(u => u.CampsiteId == campsiteID).ToListAsync();
+            if (rating == null)
+            {
+                return NotFound();
+            }
 
+            return rating;
+        }
 
         [HttpPost]
         [Route("CreateRatings")]
