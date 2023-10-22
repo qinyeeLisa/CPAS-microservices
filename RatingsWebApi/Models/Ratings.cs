@@ -12,8 +12,8 @@ namespace RatingsWebApi.Models
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public long RatingId { get; set; }
 
-            [ForeignKey("UserId ")]
-            public long UserId { get; set; }
+            [ForeignKey("CampsiteId ")]
+            public long CampsiteId { get; set; }
 
             [MaxLength(500)]
             public string Description { get; set; }

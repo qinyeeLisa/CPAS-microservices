@@ -38,11 +38,11 @@ namespace RatingsWebApi.Controllers
 
         [HttpPost]
         [Route("CreateRatings")]
-        public async Task<IActionResult> CreateRatings(int userid, String Description, int rating, String userName)
+        public async Task<IActionResult> CreateRatings(int CampsiteId, String Description, int rating, String userName)
         {
             Ratings createRating = new Ratings
             {
-                UserId= userid,
+                CampsiteId = CampsiteId,
                 Description= Description,
                 CreatedBy = userName,
                 UpdatedBy = userName,
@@ -65,7 +65,7 @@ namespace RatingsWebApi.Controllers
             var updateRating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingId).FirstOrDefaultAsync();
 
             updateRating.RatingId = updateRating.RatingId;
-            updateRating.UserId = updateRating.UserId;
+            updateRating.CampsiteId = updateRating.CampsiteId;
             updateRating.Description = newDescription;
             updateRating.Rating = newRating;
             updateRating.CreatedBy = updateRating.CreatedBy;
