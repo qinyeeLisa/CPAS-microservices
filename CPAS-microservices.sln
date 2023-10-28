@@ -31,6 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApproveAppApi", "ApproveApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RatingsWebApi", "RatingsWebApi\RatingsWebApi.csproj", "{DA00727C-EB87-44C3-BF7A-432290ED7BE4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AE938478-9189-4B2F-AC05-6C4AB68A4A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserWebApi.Test", "UserWebApi.Test\UserWebApi.Test.csproj", "{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{DA00727C-EB87-44C3-BF7A-432290ED7BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA00727C-EB87-44C3-BF7A-432290ED7BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA00727C-EB87-44C3-BF7A-432290ED7BE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +86,7 @@ Global
 		{180BAE90-9775-4AF3-98E5-DB2DB184DEF8} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 		{39A0B6B8-8DA6-4F5B-A094-65F133FE9A79} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
 		{DA00727C-EB87-44C3-BF7A-432290ED7BE4} = {9EA9B451-B445-4DA4-AF43-5FF6C4F052AB}
+		{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E566C961-7672-4FE6-93DD-F08BB574EE2D}

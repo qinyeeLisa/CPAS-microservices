@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Reference Include="UserWebApi">
-      <HintPath>..\UserWebApi\bin\Debug\net6.0\UserWebApi.dll</HintPath>
+      <HintPath>References\UserWebApi.dll</HintPath>
     </Reference>
   </ItemGroup>
 
