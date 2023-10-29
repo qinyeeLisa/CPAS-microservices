@@ -15,10 +15,8 @@ namespace UserWebApi.Test.Data
 
         public TestUserAPIDbContext()
         {
-            // Set up your DbContext here, e.g., using an in-memory database.
             var options = new DbContextOptionsBuilder<UserAPIDbContext>()
             .UseInMemoryDatabase(databaseName: "UserDbTest")
-            .EnableSensitiveDataLogging()
             .Options;
 
             dbContext = new UserAPIDbContext(options);
@@ -42,17 +40,11 @@ namespace UserWebApi.Test.Data
 
             dbContext.Add(user);
             dbContext.SaveChanges();
-           
-            
         }
 
         public void Dispose()
         {
-            // Clean up resources, if necessary.
             dbContext.Dispose();
         }
-        //public TestUserAPIDbContext(DbContextOptions<UserAPIDbContext> options) : base(options)
-        //{
-        //}
     }
 }

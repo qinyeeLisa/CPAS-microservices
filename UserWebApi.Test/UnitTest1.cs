@@ -26,7 +26,6 @@ namespace UserWebApi.Test
             _mockDbContext = mockDbContext;
         }
 
-
         [Fact]
         public async Task Login_ShouldReturnUserProfile_Positive()
         {
