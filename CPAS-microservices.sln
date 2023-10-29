@@ -35,11 +35,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AE938478-9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserWebApi.Test", "UserWebApi.Test\UserWebApi.Test.csproj", "{444DCF3E-CA63-4F55-8DAC-5D10FBA492E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackWebApi.Test", "FeedbackWebApi.Test\FeedbackWebApi.Test.csproj", "{84085C69-623A-4628-A5E9-1F70A1A14A0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedbackWebApi.Test", "FeedbackWebApi.Test\FeedbackWebApi.Test.csproj", "{84085C69-623A-4628-A5E9-1F70A1A14A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApproveAppApi.Test", "ApproveAppApi.Test\ApproveAppApi.Test.csproj", "{7CC390B0-EF79-4974-8A37-255EFA5C930E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApproveAppApi.Test", "ApproveAppApi.Test\ApproveAppApi.Test.csproj", "{7CC390B0-EF79-4974-8A37-255EFA5C930E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampsiteDetailApi.Test", "CampsiteDetailApi.Test\CampsiteDetailApi.Test.csproj", "{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampsiteDetailApi.Test", "CampsiteDetailApi.Test\CampsiteDetailApi.Test.csproj", "{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PermitApplicationWebApi.Test", "PermitApplicationWebApi.Test\PermitApplicationWebApi.Test.csproj", "{17661F26-60D3-4B18-8043-32553A7E8016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingsWebApi.Test", "RatingsWebApi.Test\RatingsWebApi.Test.csproj", "{E2685BD5-6308-41A2-8F00-6C6E35302D7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchCampsitesApi.Test", "SearchCampsitesApi.Test\SearchCampsitesApi.Test.csproj", "{9F522E5C-04C1-4C5A-93EC-18DBD291AD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +97,18 @@ Global
 		{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17661F26-60D3-4B18-8043-32553A7E8016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17661F26-60D3-4B18-8043-32553A7E8016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17661F26-60D3-4B18-8043-32553A7E8016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17661F26-60D3-4B18-8043-32553A7E8016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2685BD5-6308-41A2-8F00-6C6E35302D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2685BD5-6308-41A2-8F00-6C6E35302D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2685BD5-6308-41A2-8F00-6C6E35302D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2685BD5-6308-41A2-8F00-6C6E35302D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F522E5C-04C1-4C5A-93EC-18DBD291AD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F522E5C-04C1-4C5A-93EC-18DBD291AD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F522E5C-04C1-4C5A-93EC-18DBD291AD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F522E5C-04C1-4C5A-93EC-18DBD291AD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +126,9 @@ Global
 		{84085C69-623A-4628-A5E9-1F70A1A14A0E} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
 		{7CC390B0-EF79-4974-8A37-255EFA5C930E} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
 		{7F268D67-C2F3-4E1D-A0DF-ABF4579B1F58} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
+		{17661F26-60D3-4B18-8043-32553A7E8016} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
+		{E2685BD5-6308-41A2-8F00-6C6E35302D7A} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
+		{9F522E5C-04C1-4C5A-93EC-18DBD291AD32} = {AE938478-9189-4B2F-AC05-6C4AB68A4A3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E566C961-7672-4FE6-93DD-F08BB574EE2D}
