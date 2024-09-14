@@ -6,7 +6,7 @@ using RatingsWebApi.Models;
 
 namespace RatingsWebApi.Controllers
 {
-    [Route("ratingsapi/[controller]")]
+    [Route("ratingsapi/rating")]
     [ApiController]
     public class RatingsController : ControllerBase
     {
@@ -21,11 +21,10 @@ namespace RatingsWebApi.Controllers
 
 
 
-        [HttpGet]
-        [Route("Ratings")]
-        public async Task<ActionResult<Ratings>> GetRatings(int RatingId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Ratings>> GetRatings(int id)
         {
-            var rating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId== RatingId).FirstOrDefaultAsync();
+            var rating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId== id).FirstOrDefaultAsync();
             if (rating == null)
             {
                 return NotFound();
@@ -36,8 +35,7 @@ namespace RatingsWebApi.Controllers
         /*returns the size list in the case frontEnd wants to get the list of sizes available as a dropdown*/
 
 
-        [HttpPost]
-        [Route("CreateRatings")]
+        [HttpPost("createrating")]
         public async Task<IActionResult> CreateRatings(int userid, String Description, int rating, String userName)
         {
             Ratings createRating = new Ratings
@@ -58,8 +56,7 @@ namespace RatingsWebApi.Controllers
             return Ok("Rating added successfully");
         }
 
-        [HttpPut]
-        [Route("UpdateRatings")]
+        [HttpPut("editrating/{id}")]
         public async Task<IActionResult> UpdateRatings(int ratingId, String newDescription, int newRating, String OwnerName)
         {
             var updateRating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingId).FirstOrDefaultAsync();
@@ -78,7 +75,7 @@ namespace RatingsWebApi.Controllers
             return Ok("Rating Updated successfully");
         }
 
-        [HttpDelete("DeleteRatings")]
+        [HttpDelete("deleterating/{id}")]
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteRatings(int ratingID)
         {

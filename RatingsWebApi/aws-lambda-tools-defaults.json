@@ -1,15 +1,15 @@
 
 {
     "region" : "ap-southeast-1",
-    "profile" : "Team11",
+    "profile" : "team6cpas-dev",
     "configuration" : "Release",
     "framework"     : "net6.0",
-    "function-name" : "RatingsWebApi",
+    "function-name" : "RatingsLambdaApi",
     "function-description" : "",
     "package-type"         : "Zip",
     "function-handler"     : "RatingsWebApi",
     "function-memory-size" : 512,
-    "function-role"        : "arn:aws:iam::613133681863:role/lambda_exec_RatingsWebApi-0",
+    "function-role"        : "arn:aws:iam::156041402477:role/service-role/RatingsLambdaApi-role-0azqg6t9",
     "function-timeout"     : 15,
     "function-runtime"     : "dotnet6",
     "function-architecture" : "x86_64",

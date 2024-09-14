@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RatingsWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class intialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,6 @@ namespace RatingsWebApi.Migrations
             migrationBuilder.EnsureSchema(
                 name: "dbo");
 
-           
             migrationBuilder.CreateTable(
                 name: "Ratings",
                 schema: "dbo",
@@ -33,20 +32,7 @@ namespace RatingsWebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ratings", x => x.RatingId);
-                    table.ForeignKey(
-                        name: "FK_Ratings_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_UserId",
-                schema: "dbo",
-                table: "Ratings",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -55,7 +41,6 @@ namespace RatingsWebApi.Migrations
             migrationBuilder.DropTable(
                 name: "Ratings",
                 schema: "dbo");
-
         }
     }
 }
