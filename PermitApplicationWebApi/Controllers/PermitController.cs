@@ -42,6 +42,60 @@ namespace PermitApplicationWebApi.Controllers
 
         }
 
+        // GET: api/permit
+        //[HttpGet]
+        //public ActionResult<IEnumerable<Permit>> GetPermits()
+        //{
+        //    // Return hardcoded permits for testing purposes
+        //    var mockPermits = new List<Permit>
+        //{
+        //    new Permit
+        //    {
+        //        UserId = 4,
+        //        PermitId = 1, // Updated PermitId to 1
+        //        StartDate = DateTime.Now.AddDays(-10), // Example start date
+        //        EndDate = DateTime.Now.AddDays(10), // Example end date
+        //        Location = "Location A", // Example location
+        //        Area = "Area 1", // Example area
+        //        Status = "Approved", // Example status
+        //        CreatedBy = "Admin", // Example created by user
+        //        DateTimeCreated = DateTime.Now.AddDays(-10), // Example creation date
+        //        UpdatedBy = "Admin", // Example updated by user
+        //        DateTimeUpdated = DateTime.Now // Example update date
+        //    },
+        //    new Permit
+        //    {
+        //        UserId = 5,
+        //        PermitId = 2, // Updated PermitId to 2
+        //        StartDate = DateTime.Now.AddDays(-5), // Example start date
+        //        EndDate = DateTime.Now.AddDays(15), // Example end date
+        //        Location = "Location B", // Example location
+        //        Area = "Area 2", // Example area
+        //        Status = "Pending", // Example status
+        //        CreatedBy = "User1", // Example created by user
+        //        DateTimeCreated = DateTime.Now.AddDays(-5), // Example creation date
+        //        UpdatedBy = "User1", // Example updated by user
+        //        DateTimeUpdated = DateTime.Now // Example update date
+        //    },
+        //    new Permit
+        //    {
+        //        UserId = 6,
+        //        PermitId = 3, // Updated PermitId to 3
+        //        StartDate = DateTime.Now.AddDays(-20), // Example start date
+        //        EndDate = DateTime.Now.AddDays(5), // Example end date
+        //        Location = "Location C", // Example location
+        //        Area = "Area 3", // Example area
+        //        Status = "Denied", // Example status
+        //        CreatedBy = "User2", // Example created by user
+        //        DateTimeCreated = DateTime.Now.AddDays(-20), // Example creation date
+        //        UpdatedBy = "User2", // Example updated by user
+        //        DateTimeUpdated = DateTime.Now // Example update date
+        //    }
+        //};
+
+        //    return Ok(mockPermits);
+        //}
+
 
         // GET: api/permit/5
         [HttpGet("{id}")]

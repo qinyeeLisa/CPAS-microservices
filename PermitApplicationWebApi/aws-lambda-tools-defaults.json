@@ -1,14 +1,15 @@
 
 {
     "region" : "ap-southeast-1",
-    "profile" : "Team11",
+    "profile" : "team6cpas-dev",
     "configuration" : "Release",
     "framework"     : "net6.0",
-    "function-name" : "PermitApplicationWebAPI",
-    "package-type"  : "Zip",
-    "function-handler" : "PermitApplicationWebApi",
+    "function-name" : "PermitAppLambdaApi",
+    "function-description" : "",
+    "package-type"         : "Zip",
+    "function-handler"     : "PermitApplicationWebApi",
     "function-memory-size" : 512,
-    "function-role"        : "arn:aws:iam::613133681863:role/service-role/LambdaPermitApplicationAPI-role-a26bvg69",
+    "function-role"        : "arn:aws:iam::156041402477:role/service-role/PermitAppLambdaApi-role-iykcsibm",
     "function-timeout"     : 15,
     "function-runtime"     : "dotnet6",
     "function-architecture" : "x86_64",
@@ -16,6 +17,5 @@
     "function-security-groups" : "",
     "tracing-mode"             : "PassThrough",
     "environment-variables"    : "\"ASPNETCORE_ENVIRONMENT\"=\"Development\"",
-    "image-tag"                : "",
-    "function-description"     : ""
+    "image-tag"                : ""
 }

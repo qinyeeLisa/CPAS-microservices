@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PermitApplicationWebApi.Migrations
+namespace FeedbackWebApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -15,28 +15,25 @@ namespace PermitApplicationWebApi.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "Permit",
+                name: "Feedback",
                 schema: "dbo",
                 columns: table => new
                 {
-                    PermitId = table.Column<long>(type: "bigint", nullable: false)
+                    FeedbackId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateTimeUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permit", x => x.PermitId);
+                    table.PrimaryKey("PK_Feedback", x => x.FeedbackId);
                     table.ForeignKey(
-                        name: "FK_Permit_User_UserId",
+                        name: "FK_Feedback_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "User",
@@ -45,9 +42,9 @@ namespace PermitApplicationWebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Permit_UserId",
+                name: "IX_Feedback_UserId",
                 schema: "dbo",
-                table: "Permit",
+                table: "Feedback",
                 column: "UserId");
         }
 
@@ -55,9 +52,12 @@ namespace PermitApplicationWebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Permit",
+                name: "Feedback",
                 schema: "dbo");
 
+            migrationBuilder.DropTable(
+                name: "User",
+                schema: "dbo");
         }
     }
 }
