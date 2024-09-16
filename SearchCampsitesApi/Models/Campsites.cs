@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using UserWebApi.Models;
+
 namespace SearchCampsitesApi.Models
 {
     [Table("Campsites", Schema = "dbo")]
@@ -12,6 +14,8 @@ namespace SearchCampsitesApi.Models
 
         [ForeignKey("UserId")]
         public long UserId { get; set; }
+
+        internal readonly User User; // Navigation property to related User entity
 
         [MaxLength(500)]
         public string Address { get; set; }
@@ -35,5 +39,7 @@ namespace SearchCampsitesApi.Models
         public string UpdatedBy { get; set; }
 
         public DateTime DateTimeUpdated { get; set; }
+
+
     }
 }

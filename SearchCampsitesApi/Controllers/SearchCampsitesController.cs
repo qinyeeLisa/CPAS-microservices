@@ -20,7 +20,19 @@ namespace SearchCampsitesApi.Controllers
             _logger = logger;
         }
 
-        
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Campsites>>> GetPermits()
+        {
+            if (_campsitesAPIDbContext.Campsite == null)
+            {
+                return NotFound();
+            }
+            return await _campsitesAPIDbContext.Campsite.ToListAsync();
+
+
+        }
+
 
         [HttpGet]
         [Route("SearchCampsites")]

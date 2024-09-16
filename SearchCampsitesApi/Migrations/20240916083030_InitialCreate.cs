@@ -6,16 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SearchCampsitesApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Intialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "dbo");
-            migrationBuilder.DropTable(
-                name: "Campsites",
-                schema: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "Campsites",
                 schema: "dbo",

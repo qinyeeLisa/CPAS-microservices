@@ -22,6 +22,12 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UserWebApi">
+      <HintPath>..\UserWebApi\bin\Release\net6.0\UserWebApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   
 
 

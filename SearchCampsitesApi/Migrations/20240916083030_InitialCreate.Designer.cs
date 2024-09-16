@@ -12,8 +12,8 @@ using SearchCampsitesApi.Data;
 namespace SearchCampsitesApi.Migrations
 {
     [DbContext(typeof(CampsiteAPIDbContext))]
-    [Migration("20231011125111_Intial create")]
-    partial class Intialcreate
+    [Migration("20240916083030_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,11 @@ namespace SearchCampsitesApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
