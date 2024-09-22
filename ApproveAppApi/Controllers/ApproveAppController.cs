@@ -52,6 +52,39 @@ namespace ApproveAppApi.Controllers
 
         }
 
+
+        [HttpPost("rejectpermit")]
+        public async Task<ActionResult> RejectApplication([FromBody] PermitInfoDto permitInfo)
+        {
+            // Validate user
+            var getUserID = await _approveAPIDbContext.Users.FindAsync(permitInfo.UserId);
+            if (getUserID == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Find the permit
+            var existingPermit = await _approveAPIDbContext.Permits
+                .Where(u => u.PermitId == permitInfo.Id)
+                .FirstOrDefaultAsync();
+
+            if (existingPermit == null)
+            {
+                return NotFound("Permit not found.");
+            }
+
+            // Update status to Rejected
+            existingPermit.Status = "Rejected";
+            existingPermit.UpdatedBy = getUserID.Username;
+            existingPermit.DateTimeUpdated = DateTime.Now;
+
+            // Save changes to the database
+            await _approveAPIDbContext.SaveChangesAsync();
+
+            return Ok("Permit is rejected successfully.");
+        }
+
+
         // POST api/approve/{id}
         //[HttpPost("{id}")]
         //public async Task<ActionResult> ApproveApplication(long id, string approver)
