@@ -15,6 +15,8 @@ namespace FeedbackWebApi.Models
         [ForeignKey("User")]
         public long UserId { get; set; }
 
+        internal readonly User User; // Navigation property to related User entity
+
         [MaxLength(100)]
         public string Title { get; set; }
 
@@ -31,7 +33,5 @@ namespace FeedbackWebApi.Models
 
         public DateTime DateTimeUpdated { get; set; }
 
-        [NotMapped]
-        public virtual User User { get; set; }
     }
 }

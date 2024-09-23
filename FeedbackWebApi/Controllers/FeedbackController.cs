@@ -38,36 +38,36 @@ namespace FeedbackWebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Feedback>> GetFeedback(long id)
-        {
-            if (_feedbackAPIDbContext.Feedback == null)
-            {
-                return NotFound();
-            }
-            var permit = await _feedbackAPIDbContext.Feedback.FindAsync(id);
-
-            if (permit == null)
-            {
-                return NotFound();
-            }
-
-            return permit;
-        }
-
-        //[HttpGet("GetFeedback")]
-        //public async Task<IActionResult> GetFeedback(long userId)
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Feedback>> GetFeedback(long id)
         //{
-        //    var existingFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.UserId == userId).ToListAsync();
-        //    if (existingFeedback.Any())
-        //    {
-        //        return (IActionResult)existingFeedback;
-        //    }
-        //    else
+        //    if (_feedbackAPIDbContext.Feedback == null)
         //    {
         //        return NotFound();
         //    }
+        //    var permit = await _feedbackAPIDbContext.Feedback.FindAsync(id);
+
+        //    if (permit == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return permit;
         //}
+
+        [HttpGet("GetFeedback/{userId}")]
+        public async Task<IActionResult> GetFeedback(long userId)
+        {
+            var existingFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.UserId == userId).ToListAsync();
+            if (existingFeedback.Any())
+            {
+                return Ok(existingFeedback);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         [HttpPost("UpdateFeedback")]
         public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackInfoDto feedbackInfo)
