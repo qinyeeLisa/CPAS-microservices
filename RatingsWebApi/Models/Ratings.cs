@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using UserWebApi.Models;
 
 namespace RatingsWebApi.Models
 {
@@ -12,8 +13,10 @@ namespace RatingsWebApi.Models
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public long RatingId { get; set; }
 
-            [ForeignKey("UserId ")]
+            [ForeignKey("User")]
             public long UserId { get; set; }
+
+            internal readonly User User;
 
             [MaxLength(500)]
             public string Description { get; set; }

@@ -94,7 +94,7 @@ namespace FeedbackWebApi.Controllers
             }
         }
 
-        [HttpDelete("DeleteFeedback")]
+        [HttpDelete("DeleteFeedback/{feedbackId}")]
         public async Task<IActionResult> DeleteFeedback(long feedbackId)
         {
             var currentFeedback = await _feedbackAPIDbContext.Feedback.Where(u => u.FeedbackId == feedbackId).FirstOrDefaultAsync();

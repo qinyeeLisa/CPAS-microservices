@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RatingsWebApi.Data;
-
+using RatingsWebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<RatingsAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(gen =>
+{
+    gen.DocumentFilter<CustomSwaggerFilter>();
+    gen.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+});
 
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
+builder.Services.AddScoped<RatingService>();
+builder.Services.AddDbContext<RatingsAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
