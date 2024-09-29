@@ -23,12 +23,10 @@ namespace SearchCampsitesApi.Models
         [MaxLength(500)]
         public string CampsiteName { get; set; }
 
-
-
         public int Size { get; set; }
 
         [MaxLength(500)]
-        public string remarks { get; set; }
+        public string Remarks { get; set; }
 
         [MaxLength(100)]
         public string CreatedBy { get; set; }

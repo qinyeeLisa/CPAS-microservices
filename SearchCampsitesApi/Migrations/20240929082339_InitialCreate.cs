@@ -25,7 +25,7 @@ namespace SearchCampsitesApi.Migrations
                     Address = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CampsiteName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    remarks = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -56,7 +56,6 @@ namespace SearchCampsitesApi.Migrations
             migrationBuilder.DropTable(
                 name: "Campsites",
                 schema: "dbo");
-
         }
     }
 }

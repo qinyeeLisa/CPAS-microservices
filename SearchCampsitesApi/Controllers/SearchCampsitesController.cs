@@ -22,7 +22,7 @@ namespace SearchCampsitesApi.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Campsites>>> GetPermits()
+        public async Task<ActionResult<IEnumerable<Campsites>>> GetCampsites()
         {
             if (_campsitesAPIDbContext.Campsite == null)
             {
@@ -74,7 +74,7 @@ namespace SearchCampsitesApi.Controllers
                 Address = Address,
                 CampsiteName= CampsiteName,
                 Size=Size,
-                remarks=Remarks,
+                Remarks=Remarks,
                 CreatedBy=OwnerName,
                 UpdatedBy=OwnerName,
                 DateTimeCreated = DateTime.Now,
