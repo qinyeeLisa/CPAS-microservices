@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using UserWebApi;
 using UserWebApi.Data;
 using UserWebApi.Services;
 
@@ -14,7 +15,25 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 builder.Services.AddScoped<UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.AddDbContext<UserAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<UserAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Get the encryption key from environment variable
+//var encryptionKey = Environment.GetEnvironmentVariable("ENCRYPTION_KEY");
+//if (string.IsNullOrEmpty(encryptionKey))
+//{
+//    throw new Exception("Encryption key not found. Please set the ENCRYPTION_KEY environment variable.");
+//}
+
+// Get the encrypted connection string from appsettings.json
+var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Decrypt the connection string
+var decryptor = new StringDecryptor("Group6CampersitePassword");
+var decryptedConnectionString = decryptor.Decrypt(encryptedConnectionString);
+
+// Configure the DbContext with the decrypted connection string 
+builder.Services.AddDbContext<UserAPIDbContext>(options =>
+    options.UseSqlServer(decryptedConnectionString));
 
 var app = builder.Build();
 

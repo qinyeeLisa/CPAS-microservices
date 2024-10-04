@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using FeedbackWebApi.Data;
 using FeedbackWebApi.Services;
 using Microsoft.Extensions.Configuration;
-using UserWebApi.Data;
+using FeedbackWebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,18 @@ builder.Services.AddSwaggerGen(gen =>
 });
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 builder.Services.AddScoped<FeedbackService>();
-builder.Services.AddDbContext<FeedbackAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<FeedbackAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Get the encrypted connection string from appsettings.json
+var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Decrypt the connection string
+var decryptor = new StringDecryptor("Group6CampersitePassword");
+var decryptedConnectionString = decryptor.Decrypt(encryptedConnectionString);
+
+// Configure the DbContext with the decrypted connection string 
+builder.Services.AddDbContext<FeedbackAPIDbContext>(options =>
+    options.UseSqlServer(decryptedConnectionString));
 
 var app = builder.Build();
 
