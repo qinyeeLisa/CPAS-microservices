@@ -1,3 +1,4 @@
+using ApproveAppApi;
 using ApproveAppApi.Data;
 using ApproveAppApi.Services;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,17 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
 builder.Services.AddScoped<PermitService>();
 // Dependency Injection of DbContext Class
-builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Get the encrypted connection string from appsettings.json
+var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+// Decrypt the connection string
+var decryptor = new StringDecryptor("Group6CampersitePassword");
+var decryptedConnectionString = decryptor.Decrypt(encryptedConnectionString);
+
+// Configure the DbContext with the decrypted connection string 
+builder.Services.AddDbContext<ApproveAPIDbContext>(options =>
+    options.UseSqlServer(decryptedConnectionString));
 
 var app = builder.Build();
 

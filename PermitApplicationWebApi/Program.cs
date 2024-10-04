@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using PermitApplicationWebApi;
 using PermitApplicationWebApi.Data;
 using PermitApplicationWebApi.Services;
 
@@ -19,8 +20,16 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi); // will be ignored if run locally
 builder.Services.AddScoped<PermitService>();
 // Dependency Injection of DbContext Class
-builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<PermitAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+// Decrypt the connection string
+var decryptor = new StringDecryptor("Group6CampersitePassword");
+var decryptedConnectionString = decryptor.Decrypt(encryptedConnectionString);
+
+// Configure the DbContext with the decrypted connection string 
+builder.Services.AddDbContext<PermitAPIDbContext>(options =>
+    options.UseSqlServer(decryptedConnectionString));
 
 
 
