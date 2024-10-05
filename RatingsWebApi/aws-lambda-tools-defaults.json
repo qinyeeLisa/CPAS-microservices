@@ -13,8 +13,8 @@
     "function-timeout"     : 15,
     "function-runtime"     : "dotnet6",
     "function-architecture" : "x86_64",
-    "function-subnets"      : "",
-    "function-security-groups" : "",
+    "function-subnets"      : "subnet-01e310961e48ac8b2,subnet-02357a362d32a2730,subnet-0c703df0eb8800a23",
+    "function-security-groups" : "sg-028deba9be401ff82",
     "tracing-mode"             : "PassThrough",
     "environment-variables"    : "\"ASPNETCORE_ENVIRONMENT\"=\"Development\"",
     "image-tag"                : ""

@@ -25,19 +25,26 @@ namespace RatingsWebApi.Controllers
         [HttpPost("AddRating")]
         public async Task<IActionResult> AddRating([FromBody] RatingInfoDto ratingInfo)
         {
-            var currentUser = _ratingsAPIDbContext.User.Where(u => u.UserId == ratingInfo.UserId).FirstOrDefault();
-            var newRating = _ratingService.MapRatingInfoDtoToEntity(ratingInfo);
-            if (currentUser != null)
+            var isRatingExist = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingInfo.RatingId).FirstOrDefaultAsync();
+
+       
+            if (isRatingExist == null)
             {
-                newRating.CreatedBy = currentUser.Username;
+                var newRating = _ratingService.MapRatingInfoDtoToEntity(ratingInfo);
+                newRating.CreatedBy = newRating.CreatedBy;
                 newRating.DateTimeCreated = DateTime.Now;
-                newRating.UpdatedBy = currentUser.Username;
+                newRating.UpdatedBy = newRating.UpdatedBy;
                 newRating.DateTimeUpdated = DateTime.Now;
+
+                await _ratingsAPIDbContext.Rating.AddAsync(newRating);
+                await _ratingsAPIDbContext.SaveChangesAsync();
+                return Ok("Rating added successfully");
+            }
+            else
+            {
+                return Conflict("Rating exist.");
             }
 
-            await _ratingsAPIDbContext.Rating.AddAsync(newRating);
-            await _ratingsAPIDbContext.SaveChangesAsync();
-            return Ok("Rating added successfully");
         }
 
         //ok
@@ -64,14 +71,14 @@ namespace RatingsWebApi.Controllers
         {
             var currentRating = await _ratingsAPIDbContext.Rating.Where(u => u.RatingId == ratingInfo.RatingId).FirstOrDefaultAsync();
 
-            var currentUser = _ratingsAPIDbContext.User.Where(u => u.UserId == ratingInfo.UserId).FirstOrDefault();
+            var currentUser = _ratingsAPIDbContext.Rating.Where(u => u.UserId == ratingInfo.UserId).FirstOrDefault();
 
             if (currentRating != null && currentUser != null)
             {
                 var updatedRating = _ratingService.MapRatingInfoDtoToEntity(ratingInfo);
-                updatedRating.CreatedBy = currentUser!.Username;
+                updatedRating.CreatedBy = currentRating.CreatedBy;
                 updatedRating.DateTimeCreated = currentRating.DateTimeCreated;
-                updatedRating.UpdatedBy = currentUser!.Username;
+                updatedRating.UpdatedBy = currentRating.UpdatedBy;
                 updatedRating.DateTimeUpdated = DateTime.Now;
                 _ratingsAPIDbContext.Entry(currentRating).State = EntityState.Detached;
                 _ratingsAPIDbContext.Entry(updatedRating).State = EntityState.Modified;

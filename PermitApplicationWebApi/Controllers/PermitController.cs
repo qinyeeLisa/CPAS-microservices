@@ -80,11 +80,11 @@ namespace PermitApplicationWebApi.Controllers
         [HttpPut("editpermit/{id}")]
         public async Task<IActionResult> EditPermit([FromBody] PermitInfoDto permitInfo)
         {
-            //var getUserID = await _permitAPIDbContext.Users.FindAsync(permitInfo.UserId);
-            //if (getUserID == null)
-            //{
-            //    return NotFound();
-            //}
+            var getUserID = await _permitAPIDbContext.Permits.FindAsync(permitInfo.UserId);
+            if (getUserID == null)
+            {
+                return NotFound();
+            }
 
             var currentPermit = await _permitAPIDbContext.Permits.Where(u => u.PermitId == permitInfo.Id).FirstOrDefaultAsync();
             if (currentPermit != null) 

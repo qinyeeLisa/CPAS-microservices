@@ -13,7 +13,9 @@ namespace RatingsWebApi.Services
                 UserId = ratingInfo.UserId,
                 Description = ratingInfo.Description,
                 Rating = ratingInfo.Rating,
-              
+                CreatedBy = ratingInfo.CreatedBy,
+                UpdatedBy = ratingInfo.UpdatedBy
+
             };
         }
     }
