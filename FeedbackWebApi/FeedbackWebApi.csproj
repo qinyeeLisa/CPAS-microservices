@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ViewModel\**" />
+    <Content Remove="Models\ViewModel\**" />
+    <EmbeddedResource Remove="Models\ViewModel\**" />
+    <None Remove="Models\ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
@@ -21,16 +28,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\ViewModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="UserWebApi">
-      <HintPath>References\UserWebApi.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

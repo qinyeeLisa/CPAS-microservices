@@ -32,20 +32,7 @@ namespace FeedbackWebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Feedback", x => x.FeedbackId);
-                    table.ForeignKey(
-                        name: "FK_Feedback_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedback_UserId",
-                schema: "dbo",
-                table: "Feedback",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -53,10 +40,6 @@ namespace FeedbackWebApi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Feedback",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "User",
                 schema: "dbo");
         }
     }

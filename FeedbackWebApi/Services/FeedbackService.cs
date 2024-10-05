@@ -16,6 +16,8 @@ namespace FeedbackWebApi.Services
                 UserId = FeedbackInfo.UserId,
                 Title = FeedbackInfo.Title,
                 Description = FeedbackInfo.Description,
+                CreatedBy = FeedbackInfo.CreatedBy,
+                UpdatedBy = FeedbackInfo.UpdatedBy
             };
         }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using UserWebApi.Models;
 
 namespace FeedbackWebApi.Models
 {
@@ -12,10 +11,7 @@ namespace FeedbackWebApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long FeedbackId { get; set; }
 
-        [ForeignKey("User")]
         public long UserId { get; set; }
-
-        internal readonly User User; // Navigation property to related User entity
 
         [MaxLength(100)]
         public string Title { get; set; }

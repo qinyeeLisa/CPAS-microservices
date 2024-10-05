@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using FeedbackWebApi.Data;
 using FeedbackWebApi.Services;
 using Microsoft.Extensions.Configuration;
-using UserWebApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
