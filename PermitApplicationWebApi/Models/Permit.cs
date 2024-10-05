@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using UserWebApi.Models;
 
 namespace PermitApplicationWebApi.Models
 {
@@ -11,10 +10,7 @@ namespace PermitApplicationWebApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long PermitId { get; set; }
 
-        [ForeignKey("UserId")]
-        public long UserId { get; set; } // Foreign key
-
-        internal readonly User User; // Navigation property to related User entity
+        public long UserId { get; set; } 
 
         public DateTime StartDate { get; set; }
 

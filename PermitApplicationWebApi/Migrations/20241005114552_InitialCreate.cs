@@ -15,28 +15,6 @@ namespace PermitApplicationWebApi.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "User",
-                schema: "dbo",
-                columns: table => new
-                {
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DateTimeUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Permit",
                 schema: "dbo",
                 columns: table => new
@@ -57,20 +35,7 @@ namespace PermitApplicationWebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permit", x => x.PermitId);
-                    table.ForeignKey(
-                        name: "FK_Permit_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Permit_UserId",
-                schema: "dbo",
-                table: "Permit",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -78,10 +43,6 @@ namespace PermitApplicationWebApi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Permit",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "User",
                 schema: "dbo");
         }
     }

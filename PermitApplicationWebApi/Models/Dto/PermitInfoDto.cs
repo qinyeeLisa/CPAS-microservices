@@ -17,6 +17,9 @@ namespace PermitApplicationWebApi.Models.Dto
 
         public string Area { get; set; }
 
-     
+        public string CreatedBy { get; set; }
+
+        public string UpdatedBy { get; set; }
+
     }
 }

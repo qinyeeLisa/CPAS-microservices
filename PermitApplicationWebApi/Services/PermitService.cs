@@ -15,6 +15,8 @@ namespace PermitApplicationWebApi.Services
               EndDate = permitInfo.EndDate, 
               Location = permitInfo.Location,
               Area = permitInfo.Area,
+              CreatedBy = permitInfo.CreatedBy,
+              UpdatedBy = permitInfo.UpdatedBy
             
 
             };

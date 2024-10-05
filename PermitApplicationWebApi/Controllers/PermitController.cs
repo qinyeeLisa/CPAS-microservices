@@ -80,11 +80,11 @@ namespace PermitApplicationWebApi.Controllers
         [HttpPut("editpermit/{id}")]
         public async Task<IActionResult> EditPermit([FromBody] PermitInfoDto permitInfo)
         {
-            var getUserID = await _permitAPIDbContext.Users.FindAsync(permitInfo.UserId);
-            if (getUserID == null)
-            {
-                return NotFound();
-            }
+            //var getUserID = await _permitAPIDbContext.Users.FindAsync(permitInfo.UserId);
+            //if (getUserID == null)
+            //{
+            //    return NotFound();
+            //}
 
             var currentPermit = await _permitAPIDbContext.Permits.Where(u => u.PermitId == permitInfo.Id).FirstOrDefaultAsync();
             if (currentPermit != null) 
@@ -97,7 +97,7 @@ namespace PermitApplicationWebApi.Controllers
                 currentPermit.Area = updatedPermit.Area;
                 updatedPermit.CreatedBy = currentPermit.CreatedBy;
                 updatedPermit.DateTimeCreated = currentPermit.DateTimeCreated;
-                currentPermit.UpdatedBy = getUserID.Username;
+                currentPermit.UpdatedBy = currentPermit.UpdatedBy;
                 currentPermit.DateTimeUpdated = DateTime.Now;
                 
                 _permitAPIDbContext.Entry(currentPermit).State = EntityState.Detached;
@@ -112,39 +112,7 @@ namespace PermitApplicationWebApi.Controllers
         }
 
 
-        // PUT: api/permit/editpermit/5
-        //[HttpPut("editpermit/{id}")]
-        //public async Task<IActionResult> EditPermit(long id, Permit permit)
-        //{
-        //    if (id != permit.PermitId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _permitAPIDbContext.Entry(permit).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _permitAPIDbContext.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException) // to prevent concurrent update and delete
-        //    {
-        //        if (!PermitExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent(); //will return 204 no content
-        //}
-
-
-
-        // POST: api/permit/createpermit
+        // POST: /permitapi/permit/createpermit
         [HttpPost("createpermit")]
         public async Task<ActionResult<Permit>> CreatePermit([FromBody] PermitInfoDto permitInfo)
         {
@@ -153,18 +121,18 @@ namespace PermitApplicationWebApi.Controllers
 
             if (isPermitExist == null)
             {
-                var getUserID = await _permitAPIDbContext.Users.FindAsync(permitInfo.UserId);
-                if (getUserID == null)
-                {
-                    return NotFound();
-                }
+                //var getUserID = await _permitAPIDbContext.Users.FindAsync(permitInfo.UserId);
+                //if (getUserID == null)
+                //{
+                //    return NotFound();
+                //}
 
                 var newPermit = _permitService.MapPermitInfoDtoToEntity(permitInfo);
 
                 newPermit.Status = "Pending";
-                newPermit.CreatedBy = getUserID.Username;
+                newPermit.CreatedBy = newPermit.CreatedBy;
                 newPermit.DateTimeCreated = DateTime.Now;
-                newPermit.UpdatedBy = getUserID.Username;
+                newPermit.UpdatedBy = newPermit.UpdatedBy;
                 newPermit.DateTimeUpdated = DateTime.Now;
 
 
