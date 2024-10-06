@@ -28,27 +28,39 @@ namespace ApproveAppApi.Controllers
         public async Task<ActionResult> ApproveApplication([FromBody] PermitInfoDto permitInfo)
         {
 
-            var getUserID = await _approveAPIDbContext.Users.FindAsync(permitInfo.UserId);
-            if (getUserID == null)
+            //var getUserID = await _approveAPIDbContext.Permits.FindAsync(permitInfo.UserId);
+            //if (getUserID == null)
+            //{
+            //    return NotFound();
+            //}
+            try
             {
-                return NotFound();
+                var existingPermit = await _approveAPIDbContext.Permits.Where(u => u.PermitId == permitInfo.Id).FirstOrDefaultAsync();
+
+                if (existingPermit != null)
+                {
+
+                    var approvedPermit = _permitService.MapPermitInfoDtoToEntity(permitInfo);
+
+                    existingPermit.Status = "Approved";
+                    existingPermit.UpdatedBy = approvedPermit.UpdatedBy;
+                    existingPermit.DateTimeUpdated = DateTime.Now;
+
+                    await _approveAPIDbContext.SaveChangesAsync();
+                    return Ok("Permit is approved successfully.");
+                }
+
+                else
+                {
+                    return Conflict("Permit not approved successfully");
+                }
             }
-
-            var existingPermit = await _approveAPIDbContext.Permits.Where(u => u.PermitId == permitInfo.Id).FirstOrDefaultAsync();
-
-            if (existingPermit != null)
+            catch (Exception ex)
             {
-
-                var approvedPermit = _permitService.MapPermitInfoDtoToEntity(permitInfo);
-
-                existingPermit.Status = "Approved";
-                existingPermit.UpdatedBy = getUserID.Username;
-                existingPermit.DateTimeUpdated = DateTime.Now;
-
-                await _approveAPIDbContext.SaveChangesAsync();
+                // Log the exception for debugging
+                Console.WriteLine($"Error approving permit: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
             }
-
-            return Ok("Permit is approved successfully.");
 
         }
 
@@ -56,32 +68,34 @@ namespace ApproveAppApi.Controllers
         [HttpPost("rejectpermit")]
         public async Task<ActionResult> RejectApplication([FromBody] PermitInfoDto permitInfo)
         {
-            // Validate user
-            var getUserID = await _approveAPIDbContext.Users.FindAsync(permitInfo.UserId);
-            if (getUserID == null)
+            try
             {
-                return NotFound("User not found.");
+                var existingPermit = await _approveAPIDbContext.Permits.Where(u => u.PermitId == permitInfo.Id).FirstOrDefaultAsync();
+
+                if (existingPermit != null)
+                {
+
+                    var approvedPermit = _permitService.MapPermitInfoDtoToEntity(permitInfo);
+
+                    existingPermit.Status = "Rejected";
+                    existingPermit.UpdatedBy = approvedPermit.UpdatedBy;
+                    existingPermit.DateTimeUpdated = DateTime.Now;
+
+                    await _approveAPIDbContext.SaveChangesAsync();
+                    return Ok("Permit is rejected successfully.");
+                }
+
+                else
+                {
+                    return Conflict("Permit not rejected successfully");
+                }
             }
-
-            // Find the permit
-            var existingPermit = await _approveAPIDbContext.Permits
-                .Where(u => u.PermitId == permitInfo.Id)
-                .FirstOrDefaultAsync();
-
-            if (existingPermit == null)
+            catch (Exception ex)
             {
-                return NotFound("Permit not found.");
+                // Log the exception for debugging
+                Console.WriteLine($"Error approving permit: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
             }
-
-            // Update status to Rejected
-            existingPermit.Status = "Rejected";
-            existingPermit.UpdatedBy = getUserID.Username;
-            existingPermit.DateTimeUpdated = DateTime.Now;
-
-            // Save changes to the database
-            await _approveAPIDbContext.SaveChangesAsync();
-
-            return Ok("Permit is rejected successfully.");
         }
 
 

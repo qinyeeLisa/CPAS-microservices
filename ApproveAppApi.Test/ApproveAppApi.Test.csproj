@@ -26,7 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ApproveAppApi\ApproveAppApi.csproj" />
     <ProjectReference Include="..\PermitApplicationWebApi\PermitApplicationWebApi.csproj" />
-    <ProjectReference Include="..\UserWebApi\UserWebApi.csproj" />
   </ItemGroup>
 
 </Project>

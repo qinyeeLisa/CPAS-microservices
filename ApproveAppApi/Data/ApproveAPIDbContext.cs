@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PermitApplicationWebApi.Data;
 using PermitApplicationWebApi.Models;
-using UserWebApi.Models;
 
 namespace ApproveAppApi.Data
 {
@@ -13,6 +12,6 @@ namespace ApproveAppApi.Data
         }
 
         public DbSet<Permit> Permits { get; set; }
-        public DbSet<User> Users { get; set; }
+
     }
 }

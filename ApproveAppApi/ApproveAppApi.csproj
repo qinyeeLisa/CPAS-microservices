@@ -28,10 +28,7 @@
 
   <ItemGroup>
     <Reference Include="PermitApplicationWebApi">
-      <HintPath>References\PermitApplicationWebApi.dll</HintPath>
-    </Reference>
-    <Reference Include="UserWebApi">
-      <HintPath>References\UserWebApi.dll</HintPath>
+      <HintPath>..\PermitApplicationWebApi\bin\Release\net6.0\PermitApplicationWebApi.dll</HintPath>
     </Reference>
   </ItemGroup>
 

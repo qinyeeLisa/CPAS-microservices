@@ -11,7 +11,8 @@ namespace ApproveAppApi.Services
             {
                 PermitId = permitInfo.Id,
                 UserId = permitInfo.UserId,
-            
+                UpdatedBy = permitInfo.UpdatedBy
+
 
 
             };
