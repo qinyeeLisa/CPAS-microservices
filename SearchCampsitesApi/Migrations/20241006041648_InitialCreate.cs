@@ -34,20 +34,7 @@ namespace SearchCampsitesApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campsites", x => x.CampsiteId);
-                    table.ForeignKey(
-                        name: "FK_Campsites_User_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Campsites_UserId",
-                schema: "dbo",
-                table: "Campsites",
-                column: "UserId");
         }
 
         /// <inheritdoc />

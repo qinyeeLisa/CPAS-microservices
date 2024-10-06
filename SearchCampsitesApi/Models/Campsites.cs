@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using UserWebApi.Models;
 
 namespace SearchCampsitesApi.Models
 {
@@ -12,10 +11,7 @@ namespace SearchCampsitesApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long CampsiteId { get; set; }
 
-        [ForeignKey("UserId")]
         public long UserId { get; set; }
-
-        internal readonly User User; // Navigation property to related User entity
 
         [MaxLength(500)]
         public string Address { get; set; }
