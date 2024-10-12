@@ -26,7 +26,7 @@ namespace RatingsWebApi.Services
                 VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
             };
 
-            GetSecretValueResponse response;
+            GetSecretValueResponse? response = new();
 
             try
             {
@@ -36,10 +36,10 @@ namespace RatingsWebApi.Services
             {
                 // For a list of the exceptions thrown, see
                 // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-                throw e;
+                //throw e;
             }
 
-            if (response.SecretString != null)
+            if (response is not null && response.SecretString != null)
             {
                 return JsonConvert.DeserializeObject<Dictionary<string, string>>(response.SecretString)!;
             }
