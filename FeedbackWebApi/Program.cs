@@ -21,7 +21,9 @@ builder.Services.AddScoped<FeedbackService>();
 //builder.Services.AddDbContext<FeedbackAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Get the encrypted connection string from appsettings.json
-var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var secretsHelper = new SecretsManagerHelper();
+var secretJson = await secretsHelper.GetSecretAsync();
+var encryptedConnectionString = secretJson["connectionString"];
 
 // Decrypt the connection string
 var decryptor = new StringDecryptor("Group6CampersitePassword");
