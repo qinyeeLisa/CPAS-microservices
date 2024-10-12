@@ -12,10 +12,8 @@ namespace CampsiteDetailApi.Services
 
         public SecretsManagerHelper()
         {
-            var awsCredentials = new BasicAWSCredentials("AKIASIVGK3BWRUDUOBO2", "Mh813bj1Zezq92jvNFCrUruy5UTFi3aFQz9FA/AF");
-
             string region = "ap-southeast-1";
-            _secretsManager = new AmazonSecretsManagerClient(awsCredentials, RegionEndpoint.GetBySystemName(region));
+            _secretsManager = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
         }
 
         public async Task<Dictionary<string, string>> GetSecretAsync()
