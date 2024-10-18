@@ -21,10 +21,9 @@ builder.Services.AddScoped<PermitService>();
 // Dependency Injection of DbContext Class
 //builder.Services.AddDbContext<ApproveAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Get the encrypted connection string from appsettings.json
-//var secretsHelper = new SecretsManagerHelper();
-//var secretJson = await secretsHelper.GetSecretAsync();
-//var encryptedConnectionString = secretJson.Count > 0 ? secretJson["connectionString"] : builder.Configuration.GetConnectionString("DefaultConnection");
-var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var secretsHelper = new SecretsManagerHelper();
+var secretJson = await secretsHelper.GetSecretAsync();
+var encryptedConnectionString = secretJson["connectionString"];
 
 // Decrypt the connection string
 var decryptor = new StringDecryptor("Group6CampersitePassword");
