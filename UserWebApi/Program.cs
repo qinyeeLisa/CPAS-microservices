@@ -26,6 +26,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // Get the encrypted connection string from appsettings.json
 var encryptedConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//123
 // Decrypt the connection string
 var decryptor = new StringDecryptor("Group6CampersitePassword");
 var decryptedConnectionString = decryptor.Decrypt(encryptedConnectionString);
