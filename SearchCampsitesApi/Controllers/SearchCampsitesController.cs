@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -24,6 +25,7 @@ namespace SearchCampsitesApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Campsites>>> GetCampsites()
         {
+            AddCorsHeaders();
             if (_campsitesAPIDbContext.Campsite == null)
             {
                 return NotFound();
@@ -38,8 +40,8 @@ namespace SearchCampsitesApi.Controllers
         [Route("SearchCampsites")]
         public async Task<ActionResult<IEnumerable<Campsites>>> SearchCampsites(String Address, String CampsiteName, int? Size, String OwnerName)
         {
-            
-           //  List<Campsites> campsitesList=await _campsitesAPIDbContext.Campsite.Where<Campsites>(site => site.Address..Contains(Address) && site.CampsiteName.Contains(CampsiteName) && site.Size==Size && site.CreatedBy.Contains(OwnerName)).ToListAsync();
+            AddCorsHeaders();
+            //  List<Campsites> campsitesList=await _campsitesAPIDbContext.Campsite.Where<Campsites>(site => site.Address..Contains(Address) && site.CampsiteName.Contains(CampsiteName) && site.Size==Size && site.CreatedBy.Contains(OwnerName)).ToListAsync();
             var campsitesList = await _campsitesAPIDbContext.Campsite.FromSql($"EXECUTE uspSearchCampsites @Address={Address}, @CampsiteName={CampsiteName}, @Size={Size}, @OwnerName={OwnerName}").ToListAsync();
             if (campsitesList.Count() == 0)
             {
@@ -53,7 +55,7 @@ namespace SearchCampsitesApi.Controllers
         [Route("GetSizeList")]
         public async Task<ActionResult<IEnumerable<int>>> GetSizeList()
         {
-
+            AddCorsHeaders();
             //  List<Campsites> campsitesList=await _campsitesAPIDbContext.Campsite.Where<Campsites>(site => site.Address..Contains(Address) && site.CampsiteName.Contains(CampsiteName) && site.Size==Size && site.CreatedBy.Contains(OwnerName)).ToListAsync();
             var sizeList = await _campsitesAPIDbContext.Campsite.FromSql($"SELECT * FROM dbo.Campsites").Select(p=>p.Size).Distinct().ToListAsync();
             if (sizeList.Count() == 0)
@@ -68,6 +70,7 @@ namespace SearchCampsitesApi.Controllers
         [Route("CreateCampsites")]
         public async Task<IActionResult> CreateCampsites(int UserId, String Address, String CampsiteName, int Size, String Remarks, String OwnerName)
         {
+            AddCorsHeaders();
             Campsites campsite = new Campsites
             {
                 UserId = UserId,
@@ -92,6 +95,7 @@ namespace SearchCampsitesApi.Controllers
         //[ProducesResponseType(typeof(ErrorModel), 500)]
         public async Task<IActionResult> DeleteCampsite(int campsiteId)
         {
+            AddCorsHeaders();
             var campSite = await _campsitesAPIDbContext.Campsite.Where(u => u.CampsiteId == campsiteId).FirstOrDefaultAsync();
             if (campSite != null)
             {
@@ -105,6 +109,15 @@ namespace SearchCampsitesApi.Controllers
             }
         }
 
+        private void AddCorsHeaders()
+        {
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE");
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        }
+
 
     }
+
+
 }

@@ -41,10 +41,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(x => x
+                .WithOrigins("https://dyrsafrlwtec1.cloudfront.net")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(origin => true) // allow any origin
                 .AllowCredentials());
+
+
+
 
 app.MapGet("/campsiteTest", () => "Test!");
 app.UseHttpsRedirection();
